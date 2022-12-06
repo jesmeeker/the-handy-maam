@@ -58,25 +58,27 @@ export const Register = (props) => {
                             "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                            userId: createdUser.id,
-                            streetAddress: "",
-                            city: "",
-                            stateId: 0,
-                            phoneNumber: ""
+                            userId: createdUser.id
                     })
                 })
                         .then((res) => res.json())
-                        
+                        // .then(() => {
+                        //     setTimeout(() => 5000)
+                            
+                        // })
                         .then((createdCustomer) => {
-                            if(createdCustomer.hasOwnProperty("userId"))
-                            // {registerNewCustomer()}
-                            {
-                                fetch(`http://localhost:8088/customers?userId=${createdCustomer.userId}`, {
-                                    method: "PUT",
+                            if (createdCustomer.hasOwnProperty("id")) {
+                                fetch(`http://localhost:8088/customers/${createdCustomer.id}`, {
+                                    method: "PATCH",
                                     headers: {
                                         "Content-Type": "application/json"
                                     },
-                                    body: JSON.stringify(customer)
+                                    body: JSON.stringify({
+                                        streetAddress: customer.streetAddress,
+                                        city: customer.city,
+                                        stateId: customer.stateId,
+                                        phoneNumber: customer.phoneNumber
+                                    })
                                 })
                                     .then(res => res.json())    
                                     .then(() => {
@@ -156,7 +158,7 @@ export const Register = (props) => {
                     <label htmlFor="lastName"> Last Name </label>
                     <input onChange={updateUser}
                            type="text" id="lastName" className="form-control"
-                           placeholder="Last name" required autoFocus />
+                           placeholder="Last name" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="email"> Email address </label>
@@ -180,17 +182,20 @@ export const Register = (props) => {
                 <select onChange={updateCustomer}>
                     <option value={0} type="select" id="stateId" className="form-control" required></option>
                         {
-                        states.map((state) => {
-                                return <option key="stateCode--{state.code}" value={state.code}>{state.code}</option>
-                            }
-                        )
-                }       
+                        states.map((state) => <option key={`state--${state.id}`} value={state.id}>{state.code}</option>)
+                        }       
                 </select>
                 <fieldset>
                     <label htmlFor="zipCodeId"> Zip Code</label>
                     <input onChange={updateUser}
-                        type="text" id="zipCodeId" className="form-control"
+                        type="text" id="zipCodeId" maxLength={5} className="form-control"
                         placeholder="Zip Code" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="phoneNumber"> Phone Number</label>
+                    <input onChange={updateCustomer} 
+                        type="text" id="phoneNumber" maxLength={14} className="form-control"
+                        placeholder="Phone Number" required />
                 </fieldset>
                 <fieldset>
                     <button type="submit"

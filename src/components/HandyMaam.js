@@ -13,12 +13,12 @@ export const HandyMaam = () => {
 		<Route path="/register" element={<Register />} />
 
 		<Route path="*" element={
-			<Authorized>
+			// <Authorized>
 				<>
 					<NavBar />
 					<ApplicationViews />
 				</>
-			</Authorized>
+			// </Authorized>
 
 		} />
 	</Routes>
