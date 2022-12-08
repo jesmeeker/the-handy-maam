@@ -1,18 +1,30 @@
 import { Link, useNavigate } from "react-router-dom"
+import { CustomerNav } from "./CustomerNav"
+import { EmployeeNav } from "./EmployeeNav"
+
 import "./NavBar.css"
+import { UnauthorizedUserNav } from "./UnauthorizedNav"
+
 
 export const NavBar = () => {
-    const navigate = useNavigate()
+    
 
-    return (
-        <ul className="navbar">
-            <li className="navbar__item navbar__logout">
-                <Link className="navbar__link" to="" onClick={() => {
-                    localStorage.removeItem("handymaam_user")
-                    navigate("/", {replace: true})
-                }}>Logout</Link>
-            </li>
-        </ul>
-    )
+    const localHandyMaamUser = localStorage.getItem("handymaam_user")
+    const localUser = JSON.parse(localHandyMaamUser)
+        
+    if (!localUser) {
+        return <>
+			<UnauthorizedUserNav />  
+        </>
+    } 
+    else if (localUser.staff) {
+        return <>
+        	<EmployeeNav />
+        </>
+    } 
+	else {
+		return <>
+			<CustomerNav />
+		</>
+	}
 }
-

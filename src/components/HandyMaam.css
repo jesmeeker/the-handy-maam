@@ -1,5 +1,5 @@
 /* Import the google web fonts you want to use */
-@import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
+@import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One|Meow+Script|Sacramento");
 
 /*Typography
 --------------------------------------------------------------*/
@@ -15,12 +15,37 @@ textarea {
 }
 
 body {
-    padding: 0 3rem;
+    background-color: white;
+}
+
+.mainPage {
+  display: grid;
+  justify-items: center;
+}
+
+.mainRequestButton {
+    height: 10rem;
+    width: 20rem;
+    background-color: rgb(187, 187, 187);
+    color: white;
+    font-size: 2rem;
+    border: 1px line black;
+    border-radius: .3rem;
+    border-style:hidden;
+}
+
+.center {
+  text-align: center;
+  
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Patua One", serif;
-  letter-spacing: 2px;
+  font-family: "Sacramento", serif;
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: 5rem
 }
 
 p {

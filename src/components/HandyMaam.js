@@ -5,6 +5,7 @@ import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import "./HandyMaam.css"
+import { Main } from "./pages/Main"
 
 
 export const HandyMaam = () => {
@@ -13,12 +14,12 @@ export const HandyMaam = () => {
 		<Route path="/register" element={<Register />} />
 
 		<Route path="*" element={
-			// <Authorized>
+			<Authorized>
 				<>
 					<NavBar />
 					<ApplicationViews />
 				</>
-			// </Authorized>
+			</Authorized>
 
 		} />
 	</Routes>

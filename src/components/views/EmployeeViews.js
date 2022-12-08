@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom"
+import { Login } from "../auth/Login"
 import { Profile } from "../profiles/Profile"
 
 export const EmployeeViews = () => {
@@ -6,15 +7,16 @@ export const EmployeeViews = () => {
         <Routes>
             <Route path="/" element={
                 <>
-                    <h1>The Handy Ma'am</h1>
-                    <div>Run by women, for women.</div>
+                    <h1 className="center">The Handy Ma'am</h1>
+					<div className="center">Run by women, for women.</div>
 
-                    <div>Employee View</div>
+                    <div className="center">Employee View</div>
 
                     <Outlet />
                 </>
             }>
 				<Route path="/profile" element={ <Profile />} />
+				<Route path="/login" element={ <Login />} />
             </Route>
         </Routes>
     )

@@ -2,14 +2,27 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: left;
+    align-items: center;
+    background-color: #c89db8;
 }
 
 .navbar__item {
+    font-weight: bold;
     flex-basis: 20%;
     list-style-type: none;
+    color: white
+}
+
+.navbar__link {
+    color: white;
+    text-decoration: none
 }
 
 .navbar__logout {
     margin-left: auto;
+}
+
+.accountButton {
+    margin: 10px
 }
 

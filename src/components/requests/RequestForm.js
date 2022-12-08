@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react"
-import { isCompositeComponent } from "react-dom/test-utils"
 import { useNavigate } from "react-router-dom"
-import { UnauthorizedUserNav } from "../nav/UnauthorizedNav"
-import "./Login.css"
 
-export const Register = (props) => {
+export const RequestForm = () => {
     const [user, setUser] = useState({
         email: "",
         firstName: "",
@@ -146,11 +143,9 @@ export const Register = (props) => {
     //     const copy
     // }
     return (
-        <>
-            <UnauthorizedUserNav />
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
+                <h1 className="h3 mb-3 font-weight-normal">Request Service</h1>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
                     <input onChange={updateUser}
@@ -185,7 +180,7 @@ export const Register = (props) => {
                 <select onChange={updateCustomer}>
                     <option value={0} type="select" id="stateId" className="form-control" required>choose your state</option>
                         {
-                            states.map((state) => <option key={`state--${state.id}`} value={state.id}>{state.code}</option>)
+                        states.map((state) => <option key={`state--${state.id}`} value={state.id}>{state.code}</option>)
                         }       
                 </select>
                 <fieldset>
@@ -207,7 +202,5 @@ export const Register = (props) => {
                 </fieldset>
             </form>
         </main>
-                    </>
     )
 }
-
