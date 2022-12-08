@@ -50,7 +50,7 @@ export const Login = () => {
                     </fieldset>
                 </form>
             </section>
-            <div>ashley_martino@gmail.com</div>
+            <div>customer - ashley_martino@gmail.com</div>
             <section className="link--register">
                 <Link to="/register">Not a member yet?</Link>
             </section>

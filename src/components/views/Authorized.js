@@ -13,3 +13,19 @@ export const Authorized = ({ children }) => {
 
     }
 
+
+
+// export const Authorized = ({ children }) => {
+//     const location = useLocation()
+
+//     if (localStorage.getItem("honey_user")) {
+//         return children
+//     }
+//     else {
+//         return <Navigate
+//             to={`/login/${location.search}`}
+//             replace
+//             state={{ location }} />
+//     }
+// }
+

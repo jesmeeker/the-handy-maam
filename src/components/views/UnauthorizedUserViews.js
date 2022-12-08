@@ -28,8 +28,7 @@ export const UnauthorizedUserViews = () => {
         }>
 
                 <Route path="register" element={ <Register /> } />
-                <Route path="main" element={ <Main /> } />
-                <Route path="profile" element={ <Profile />} />
+                <Route path="*" element={ <Main /> } />
                 <Route path="login" element={ <Login />} />
                 <Route path="about" element={ <About />} />
                 <Route path="education" element={ <Education />} />
@@ -38,6 +37,7 @@ export const UnauthorizedUserViews = () => {
 
                 </Route>
         </Routes>
+            {/* <Main /> */}
         
         </>
     }

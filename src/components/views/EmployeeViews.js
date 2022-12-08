@@ -5,7 +5,7 @@ import { Profile } from "../profiles/Profile"
 export const EmployeeViews = () => {
 	return (
         <Routes>
-            <Route path="/" element={
+            <Route path="*" element={
                 <>
                     <h1 className="center">The Handy Ma'am</h1>
 					<div className="center">Run by women, for women.</div>
@@ -15,7 +15,7 @@ export const EmployeeViews = () => {
                     <Outlet />
                 </>
             }>
-				<Route path="/profile" element={ <Profile />} />
+				<Route path="*" element={ <Profile />} />
 				<Route path="/login" element={ <Login />} />
             </Route>
         </Routes>
