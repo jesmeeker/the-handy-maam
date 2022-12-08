@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { isCompositeComponent } from "react-dom/test-utils"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { NavBar } from "../nav/NavBar"
 import { UnauthorizedUserNav } from "../nav/UnauthorizedNav"
 import "./Login.css"
 
@@ -83,7 +84,7 @@ export const Register = (props) => {
                                 })
                                     .then(res => res.json())    
                                     .then(() => {
-                                        navigate("/profile")
+                                        navigate("/request")
                                     })  
                             }
                             
@@ -147,10 +148,11 @@ export const Register = (props) => {
     // }
     return (
         <>
-            <UnauthorizedUserNav />
+            <NavBar />
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
+                <div>Already a user?</div><Link to="/login">Sign in</Link>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
                     <input onChange={updateUser}

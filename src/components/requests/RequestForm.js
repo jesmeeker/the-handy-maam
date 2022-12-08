@@ -2,205 +2,118 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export const RequestForm = () => {
-    const [user, setUser] = useState({
-        email: "",
-        firstName: "",
-        lastName: "",
-        zipCodeId: 0,
-        isStaff: false,
-        image: "",
+    const [customer, setCustomer] = useState()
+
+    const [request, updateRequest] = useState({
+        customerId: 0,
+        description: "",
+        specialtyId: 0,
+        isComplete: false,
+        dateCompleted: "",
+        invoiceId: 0
     })
 
-    const [customer, setCustomer] = useState({
-        streetAddress: "",
-        city: "",
-        stateId: 0,
-        phoneNumber: ""
-    })
+    const [specialties, setSpecialties] = useState([])
+    
+    const navigate = useNavigate()
 
-    const [states, setStates] = useState([])
+    const localHandyMaamUser = localStorage.getItem("handymaam_user")
+    const localUser = JSON.parse(localHandyMaamUser)
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/states`)
+            fetch(`http://localhost:8088/specialties`)
             .then(res => res.json())
-            .then((statesArray) => {
-                setStates(statesArray)
+            .then((specialtiesArray) => {
+                setSpecialties(specialtiesArray)
             })
         },
         []
     )
 
-    let navigate = useNavigate()
-
-    
-
-    const registerNewUser = () => {
-        fetch("http://localhost:8088/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-        .then(res => res.json())
-        .then((createdUser) => {
-            if (createdUser.hasOwnProperty("id")) {
-                localStorage.setItem("handymaam_user", JSON.stringify({
-                    id: createdUser.id,
-                    staff: createdUser.isStaff}));
-                        
-                    fetch("http://localhost:8088/customers", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                            userId: createdUser.id
-                    })
-                })
-                        .then((res) => res.json())
-                        // .then(() => {
-                        //     setTimeout(() => 5000)
-                            
-                        // })
-                        .then((createdCustomer) => {
-                            if (createdCustomer.hasOwnProperty("id")) {
-                                fetch(`http://localhost:8088/customers/${createdCustomer.id}`, {
-                                    method: "PATCH",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        streetAddress: customer.streetAddress,
-                                        city: customer.city,
-                                        stateId: customer.stateId,
-                                        phoneNumber: customer.phoneNumber
-                                    })
-                                })
-                                    .then(res => res.json())    
-                                    .then(() => {
-                                        navigate("/profile")
-                                    })  
-                            }
-                            
-                        })
-                        
-                    }}
-                ) 
-                
-    }
-    
-    // const registerNewCustomer = () => {
-
-    //     const localHandyMaamUser = localStorage.getItem("handymaam_user")
-    //     const locaUserObject = JSON.parse(localHandyMaamUser)
-
-    //     fetch(`http://localhost:8088/customers?userId=${locaUserObject.id}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(customer)
-    //     })
-    //         .then(res => res.json())    
-    //         .then(() => {
-    //             navigate("/profile")
-    //         })  
-    // }
-
-    const handleRegister = (e) => {
-        e.preventDefault()
-
-        return fetch(`http://localhost:8088/users?email=${user.email}`)
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/customers?_expand=user&_embed=user&userId=${localUser.id}`)
             .then(res => res.json())
-            .then(response => {
-                if (response.length > 0) {
-                    // Duplicate email. No good.
-                    window.alert("Account with that email address already exists")
-                }
-                else {
-                    // Good email, create user.
-                    registerNewUser()
-                }
+            .then((data) => {
+                const singleCustomer = data[0]
+                setCustomer(singleCustomer)
             })
-            
+        },
+        []
+    )
+
+
+
+    const handleSaveButtonClick = (event) => {
+        event.preventDefault() 
+        
+        // TODO: Create the object to be saved to the API
+
+    const requestToSendToTheAPI = {
+        customerId: customer.id,
+        description: request.description,
+        specialtyId: request.specialtyId,
+        isComplete: false,
+        dateCompleted: "",
+        invoiceId: 0
     }
 
-    const updateUser = (evt) => {
-        const copy = {...user}
-        copy[evt.target.id] = evt.target.value
-        setUser(copy)
+
+        // TODO: Perform the fetch() to POST the object to the API
+    
+    return fetch(`http://localhost:8088/serviceRequests`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestToSendToTheAPI)
+    })
+        .then(response => response.json())
+        .then(() => {
+            navigate("/success")
+        })
     }
 
-    const updateCustomer = (evt) => {
-        const copy = {...customer}
-        copy[evt.target.id] = evt.target.value
-        setCustomer(copy)
-    }
-
-    // const updateCustomerUserId = () => {
-    //     const copy
-    // }
     return (
-        <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Request Service</h1>
-                <fieldset>
-                    <label htmlFor="firstName"> First Name </label>
-                    <input onChange={updateUser}
-                           type="text" id="firstName" className="form-control"
-                           placeholder="First name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="lastName"> Last Name </label>
-                    <input onChange={updateUser}
-                           type="text" id="lastName" className="form-control"
-                           placeholder="Last name" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input onChange={updateUser}
-                        type="email" id="email" className="form-control"
-                        placeholder="Email address" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="streetAddress"> Street Address</label>
-                    <input onChange={updateCustomer}
-                        type="text" id="streetAddress" className="form-control"
-                        placeholder="Street Address" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="city"> City</label>
-                    <input onChange={updateCustomer}
-                        type="text" id="city" className="form-control"
-                        placeholder="City" required />
-                </fieldset>
-                <label htmlFor="state">State</label><br></br>
-                <select onChange={updateCustomer}>
-                    <option value={0} type="select" id="stateId" className="form-control" required>choose your state</option>
+        <form className="ticketForm">
+            <h2 className="ticketForm__title">New Service Request</h2>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="description">Description:</label>
+                    <input
+                        required autoFocus
+                        type="text"
+                        className="form-control"
+                        placeholder="Brief description of problem"
+                        value={request.description}
+                        onChange={
+                            (evt) => {
+                                const copy = {...request}
+                                copy.description = evt.target.value
+                                updateRequest(copy)
+                            }
+                        } />
+                </div>
+            </fieldset>
+            <label htmlFor="specialty">Specialty</label><br></br>
+                <select onChange={
+                            (evt) => {
+                                const copy = {...request}
+                                copy.specialtyId = evt.target.value
+                                updateRequest(copy)
+                            }
+                        }>
+                    <option value={0} type="select" id="specialtyId" className="form-control" required>choose a specialty</option>
                         {
-                        states.map((state) => <option key={`state--${state.id}`} value={state.id}>{state.code}</option>)
+                            specialties.map((specialty) => <option key={`specialty--${specialty.id}`} value={specialty.id}>{specialty.name}</option>)
                         }       
                 </select>
-                <fieldset>
-                    <label htmlFor="zipCodeId"> Zip Code</label>
-                    <input onChange={updateUser}
-                        type="text" id="zipCodeId" maxLength={5} className="form-control"
-                        placeholder="Zip Code" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="phoneNumber"> Phone Number</label>
-                    <input onChange={updateCustomer} 
-                        type="text" id="phoneNumber" maxLength={14} className="form-control"
-                        placeholder="Phone Number" required />
-                </fieldset>
-                <fieldset>
-                    <button type="submit"
-                    onClick={(clickEvent) => handleRegister(clickEvent)}
-                    className="btn btn-primary">Register </button>
-                </fieldset>
-            </form>
-        </main>
+            <button
+                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                className="btn btn-primary">
+                Submit Request
+            </button>
+        </form>
     )
 }
