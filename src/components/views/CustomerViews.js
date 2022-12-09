@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom"
 import { Login } from "../auth/Login"
 import { Register } from "../auth/Register"
+import { EmployeeDetails } from "../Employees/EmployeeDetails"
 import { About } from "../pages/About"
 import { Education } from "../pages/Education"
 import { Main } from "../pages/Main"
@@ -34,6 +35,7 @@ export const CustomerViews = () => {
                 <Route path="services" element={ <Services />} />
 		        <Route path="reviews" element={ <Reviews />} />
                 <Route path="success" element={ <Success /> } />
+                <Route path="employees/:employeeId" element={ <EmployeeDetails /> } />
 
                 </Route>
         	</Routes>

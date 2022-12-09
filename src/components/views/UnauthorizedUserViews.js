@@ -8,6 +8,7 @@ import { Reviews } from "../pages/Reviews"
 import { Services } from "../pages/Services"
 import { RequestForm } from "../requests/RequestForm"
 import { Main } from "../pages/Main"
+import { EmployeeDetails } from "../Employees/EmployeeDetails"
 
 
 
@@ -34,6 +35,8 @@ export const UnauthorizedUserViews = () => {
                 <Route path="education" element={ <Education />} />
                 <Route path="services" element={ <Services />} />
 		        <Route path="reviews" element={ <Reviews />} />
+                <Route path="employees/:employeeId" element={ <EmployeeDetails /> } />
+                
 
                 </Route>
         </Routes>

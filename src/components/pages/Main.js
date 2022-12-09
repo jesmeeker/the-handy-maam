@@ -10,7 +10,7 @@ export const Main = () => {
     
                     <article className="mainPage">
                         <h1 className="mainPage--header">The Handy Ma'am</h1>
-                        <h2 className="center">Run by women, for women.</h2>
+                        <div className="right">Run by women, for women.</div>
                     </article>
                     <button className="requestButton"
                             onClick={() => {

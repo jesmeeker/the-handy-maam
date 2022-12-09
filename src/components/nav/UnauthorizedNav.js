@@ -8,7 +8,7 @@ export const UnauthorizedUserNav = () => {
 
     return (
         <ul className="navbar">
-    <li className="navbar__item active">
+            <li className="navbar__item active">
                 <Link to="/main"><img width="60" className="accountButton" src={logoWhite}/></Link>
             </li>
             <li className="navbar__item active">
