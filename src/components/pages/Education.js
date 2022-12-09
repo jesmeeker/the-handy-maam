@@ -55,7 +55,7 @@ export const Education = () => {
                 setFilteredVids(filteredCopy)
             }
         },
-        [chosenCategoryId]
+        [educationVids, chosenCategoryId]
     )
 
        
