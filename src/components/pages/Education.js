@@ -7,7 +7,6 @@ export const Education = () => {
     const [educationVids , setEducation] = useState([])
     const [categories, setCategories] = useState([])
     const [chosenCategoryId, setChosenCategoryId] = useState(0)
-    
     const [filteredVids, setFilteredVids] = useState([])
 
     // const getAllVideos = () => {

@@ -1,11 +1,17 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
-export const Login = () => {
+export const Login = (props) => {
     const [email, set] = useState("")
     const navigate = useNavigate()
+    const location =  useLocation()
+    let from = ""
+  
+
+    if (location.state !== null) {from = location.state.from}
+    console.log(from)
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -18,14 +24,16 @@ export const Login = () => {
                     localStorage.setItem("handymaam_user", JSON.stringify({
                         id: user.id,
                         staff: user.isStaff
-                    }))
-
-                    navigate("/profile")
-                }
-                else {
-                    window.alert("Invalid login")
-                }
-            })
+                    }))}
+                    else {
+                        window.alert("Invalid login")
+                    }})
+                        .then(() => {
+                            if (from  === "requestButton/register") {
+                                navigate("/request")}
+                            else {
+                                navigate("/profile")
+                        }})
     }
 
     return (
@@ -52,7 +60,7 @@ export const Login = () => {
             </section>
             <div>customer - ashley_martino@gmail.com</div>
             <section className="link--register">
-                <Link to="/register">Not a member yet?</Link>
+                <Link to="/register" state={{ from: "login" }}>Not a member yet?</Link>
             </section>
         </main>
     )

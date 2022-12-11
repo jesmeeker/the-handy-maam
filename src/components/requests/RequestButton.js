@@ -6,12 +6,17 @@ export const RequestButton = () => {
     const localUser = JSON.parse(localHandyMaamUser)
 
     let navigate = useNavigate()
-    return <button className="subPage--requestButton"
-                            onClick={() => {
-                                localUser
-                                ? navigate("/request")
-                                : navigate("/register")}
-                            }
-                                >+ request service
+
+    let handleNavigate = () => {
+        localUser
+        ? navigate("/request", {state: "requestButton"})
+        : navigate("/register", {state: "requestButton"})
+    }
+
+    return <button className="subPage--requestButton" 
+                    // state={{ from: "requestButton" }}
+                    onClick={() => {handleNavigate()}
+                       
+                    }>+ request service
             </button>
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
-export const RequestForm = () => {
+export const RequestForm = ({state}) => {
     const [customer, setCustomer] = useState()
 
     const [request, updateRequest] = useState({
@@ -14,6 +14,14 @@ export const RequestForm = () => {
     })
 
     const [specialties, setSpecialties] = useState([])
+    const location = useLocation()
+
+   
+    let from = null
+    console.log(from)
+
+    if (location.state !== null) {from = location.state}
+    console.log(from)
     
     const navigate = useNavigate()
 

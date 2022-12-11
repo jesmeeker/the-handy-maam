@@ -1,4 +1,6 @@
-export const Profile = () => {
+
+export const Profile = (props) => {
+    
     return <>
         Profile
     </>

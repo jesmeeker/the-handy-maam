@@ -7,6 +7,10 @@ import "./NavBar.css"
 export const EmployeeNav = () => {
     const navigate = useNavigate()
 
+    function refreshPage() {
+        window.location.reload(false)
+    }
+
     return (
         <ul className="navbar">
             <li className="navbar__item active">
@@ -26,8 +30,9 @@ export const EmployeeNav = () => {
                 localStorage.getItem("handymaam_user")
                     ? <li className="navbar__item navbar__logout">
                         <Link className="navbar__link" to="" onClick={() => {
+                            refreshPage()
                             localStorage.removeItem("handymaam_user")
-                            navigate("/", {replace: true})
+                            navigate("/")
                         }}>Logout</Link>
                     </li>
                     : ""

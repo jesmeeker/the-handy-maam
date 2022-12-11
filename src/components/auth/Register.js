@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { isCompositeComponent } from "react-dom/test-utils"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { NavBar } from "../nav/NavBar"
 import { UnauthorizedUserNav } from "../nav/UnauthorizedNav"
 import "./Login.css"
@@ -23,6 +23,13 @@ export const Register = (props) => {
     })
 
     const [states, setStates] = useState([])
+    const location = useLocation()
+
+    let from = null
+    console.log(from)
+
+    if (location.state !== null) {from = location.state.from}
+    console.log(from)
 
     useEffect(
         () => {
@@ -64,10 +71,6 @@ export const Register = (props) => {
                     })
                 })
                         .then((res) => res.json())
-                        // .then(() => {
-                        //     setTimeout(() => 5000)
-                            
-                        // })
                         .then((createdCustomer) => {
                             if (createdCustomer.hasOwnProperty("id")) {
                                 fetch(`http://localhost:8088/customers/${createdCustomer.id}`, {
@@ -84,34 +87,20 @@ export const Register = (props) => {
                                 })
                                     .then(res => res.json())    
                                     .then(() => {
-                                        navigate("/request")
-                                    })  
-                            }
+                                        if (from  === "login") {
+                                            navigate("/profile")}
+                                        else {
+                                            navigate("/request")
+                                        }
+                                    })
+                            }}
+                        )
+                }}
                             
-                        })
+            )
                         
-                    }}
-                ) 
-                
-    }
+        }
     
-    // const registerNewCustomer = () => {
-
-    //     const localHandyMaamUser = localStorage.getItem("handymaam_user")
-    //     const locaUserObject = JSON.parse(localHandyMaamUser)
-
-    //     fetch(`http://localhost:8088/customers?userId=${locaUserObject.id}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(customer)
-    //     })
-    //         .then(res => res.json())    
-    //         .then(() => {
-    //             navigate("/profile")
-    //         })  
-    // }
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -152,7 +141,7 @@ export const Register = (props) => {
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
-                <div>Already a user?</div><Link to="/login">Sign in</Link>
+                <div>Already a user?</div><Link to="/login" state={{ from: `${from}/register` }}>Sign in</Link>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
                     <input onChange={updateUser}

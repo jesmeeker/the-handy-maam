@@ -5,7 +5,6 @@ import { UnauthorizedUserViews } from './UnauthorizedUserViews'
 
 
 export const ApplicationViews = () => {
-
 	const localHandyMaamUser = localStorage.getItem("handymaam_user")
     const localUser = JSON.parse(localHandyMaamUser)
         

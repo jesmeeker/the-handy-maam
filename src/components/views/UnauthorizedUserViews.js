@@ -24,6 +24,8 @@ export const UnauthorizedUserViews = () => {
             
             <Route path="*" element={
                 <>
+                                <div>UNAUTHORIZED VIEW</div>
+
                 <Outlet />
             </>
         }>
