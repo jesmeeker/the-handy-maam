@@ -74,7 +74,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
     //         return <button>Edit Request</button>
     //     }
     // }
-
+    let charMax = 30
     let i = 1
     return <>
                 < RequestButton /><br></br>
@@ -112,7 +112,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
                              <br></br> 
                                 {
                                     customerReviews.map((review) => <div>
-                                        {review?.text}
+                                        `${review?.text.substring(0, charMax)}...``
                                     </div>)
                                 }
                                 

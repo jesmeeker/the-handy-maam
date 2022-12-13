@@ -22,17 +22,17 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     //             }        
     //     }
     // }
-
+    
     const deleteButton = () => {
         if (!currentUser.staff && !requestObject.isComplete) {
             return <button onClick={() => {
                 fetch(`http://localhost:8088/serviceRequests/${requestObject.id}`, {
-                    method: "DELETE", 
+                    method: "DELETE",
                 })
                     .then(() => {
                         getAllRequests()
                     })
-            }} className="">Cancel Request</button> 
+            }} className="ticket__delete">Cancel Request</button> 
         } 
         else if (currentUser.staff && !requestObject.isComplete) {
             return <button onClick={() => {
@@ -70,30 +70,30 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     //         .then(getAllRequests)
     // }
 
-    const buttonOrNoButton = () => {
-        if (currentUser.staff) {
-            return <button
-                            onClick={() => {
-                                fetch(`http://localhost:8088/employeeTickets`, {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        employeeId: userEmployeeId.id,
-                                        serviceTicketId: requestObject.id
-                                    })
-                                })
-                                    .then(response => response.json())
-                                    .then(() => {
-                                        getAllRequests()
-                                    })
-                            }}
-                            >Claim</button>
-        } else {
-            return ""
-        }
-    }
+    // const buttonOrNoButton = () => {
+    //     if (currentUser.staff) {
+    //         return <button
+    //                         onClick={() => {
+    //                             fetch(`http://localhost:8088/employeeTickets`, {
+    //                                 method: "POST",
+    //                                 headers: {
+    //                                     "Content-Type": "application/json"
+    //                                 },
+    //                                 body: JSON.stringify({
+    //                                     employeeId: userEmployeeId.id,
+    //                                     serviceTicketId: requestObject.id
+    //                                 })
+    //                             })
+    //                                 .then(response => response.json())
+    //                                 .then(() => {
+    //                                     getAllRequests()
+    //                                 })
+    //                         }}
+    //                         >Claim</button>
+    //     } else {
+    //         return ""
+    //     }
+    // }
 
     return <section key={`key--${requestObject.id}`} className="ticket">
             <header>Request {requestNumber}</header>
@@ -102,7 +102,8 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                 {
                     requestObject?.employeeRequests.length
                         ? `IN PROCESS: assigned to ${assignedEmployee !== null ? assignedEmployee?.user?.firstName : ""}`
-                        : buttonOrNoButton()
+                        :  ""
+                        // buttonOrNoButton()
                 }
                 {/* {
                     canClose()
