@@ -54,28 +54,9 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
             })
     }
 
-    // useEffect(
-    //     () => {
-    //         getAllRequests()
-
-    //         fetch(`http://localhost:8088/employees?_expand=user`)
-    //         .then(response => response.json())
-    //         .then((employeeArray) => {
-    //             setEmployees(employeeArray)
-    //         })
-    //     },
-    //     [customer]
-    // )
-
-    // const requestOptions = (complete) => {
-    //     if (complete) {
-    //         return <button>See Details</button>
-    //     } else {
-    //         return <button>Edit Request</button>
-    //     }
-    // }
     let charMax = 30
     let i = 1
+
     return <>
                 < RequestButton /><br></br>
                     <section className="subpage--section">
@@ -114,10 +95,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
                                     customerReviews.map((review) => <div>
                                         `${review?.text.substring(0, charMax)}...``
                                     </div>)
-                                }
-                                
-
-                            
+                                }        
                     </section>
             </>
     

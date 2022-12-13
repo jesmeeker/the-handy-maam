@@ -11,7 +11,7 @@ export const Login = (props) => {
   
 
     if (location.state !== null) {from = location.state.from}
-    console.log(from)
+    
 
     const handleLogin = (e) => {
         e.preventDefault()

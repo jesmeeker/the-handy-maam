@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 
 export const Request = ({ requestObject , currentUser , employees , getAllRequests , requestNumber}) => {
 
     let assignedEmployee = null
+    let navigate = useNavigate()
 
     if (requestObject.employeeRequests.length > 0) {
         const requestEmployeeRelationship = requestObject.employeeRequests[0]
@@ -49,6 +50,16 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
             }} className="ticket__delete">See Details</button>
         }
     }
+
+    const editButton = () => {
+        if (!currentUser.staff && !requestObject.isComplete) {
+            return <Link to={`/request/${requestObject.id}/edit`} state={{ user: {currentUser}}}>Edit
+                    </Link>
+            }
+            else {
+                return ""
+            }   
+        }
 
     // const closeTicket = () => {
     //     const copy = {
@@ -104,6 +115,9 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                         ? `IN PROCESS: assigned to ${assignedEmployee !== null ? assignedEmployee?.user?.firstName : ""}`
                         :  ""
                         // buttonOrNoButton()
+                }
+                {
+                    editButton()
                 }
                 {/* {
                     canClose()

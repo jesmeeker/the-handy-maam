@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import { Link, useFetcher, useRevalidator } from "react-router-dom"
+import { Link, useFetcher, useNavigate, useRevalidator } from "react-router-dom"
 
 
 export const EditProfileForm = () => {
     // TODO: Provide initial state for profile
+    const navigate = useNavigate()
     const [states, setStates] = useState([])
     const [user, updateUser] = useState({
         firstName: "",
@@ -83,6 +84,10 @@ export const EditProfileForm = () => {
                 .then(() => {
                     setFeedback("Customer profile successfully saved")
                 })
+                .then(() => {
+                    setTimeout(() => navigate("/profile"), 1000);
+                    
+                })
     }
  
     const updateUserCopy = (evt) => {
@@ -98,7 +103,9 @@ export const EditProfileForm = () => {
         }
 
     return (
-        <>
+        <><div className={`${feedback.includes("Error") ? "error" : "feedback"} ${feedback === "" ? "invisible" : "visible"}`}>
+        {feedback}
+    </div>
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleSubmit}>
                 <h1 className="h3 mb-3 font-weight-normal">Update your info</h1>

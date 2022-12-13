@@ -9,6 +9,7 @@ import { Reviews } from "../pages/Reviews"
 import { Services } from "../pages/Services"
 import { EditProfileForm } from "../profiles/EditProfileForm"
 import { Profile } from "../profiles/Profile"
+import { EditRequestForm } from "../requests/EditRequestForm"
 import { RequestForm } from "../requests/RequestForm"
 import { Success } from "../requests/Success"
 
@@ -40,7 +41,7 @@ export const CustomerViews = () => {
                 <Route path="success" element={ <Success /> } />
                 <Route path="employees/:employeeId" element={ <EmployeeDetails /> } />
                 <Route path="profile/edit" element={ <EditProfileForm />} />
-
+                <Route path="request/:requestId/edit" element={ <EditRequestForm />} />
                 </Route>
         	</Routes>
         </>
