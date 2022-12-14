@@ -274,12 +274,11 @@ export const EditProfileForm = () => {
                             }       
                     </select>
                     <fieldset>
-                        <label htmlFor="zipCodeId"> Zip Code</label>
-                        <input onChange={updateUserCopy}
-                            type="text" id="zipCodeId" maxLength={5} className="form-control"
-                            placeholder="Zip Code" 
-                            value={user.zipCodeId}required />
-                    </fieldset>
+                    <label htmlFor="zipCodeId"> Zip Code</label>
+                    <input onChange={updateUserCopy}
+                        type="text" id="zipCodeId" maxLength={5} className="form-control"
+                        placeholder="Zip Code" required />
+                </fieldset>
                     <fieldset>
                         <label htmlFor="phoneNumber"> Phone Number</label>
                         <input onChange={updateCustomerCopy} 

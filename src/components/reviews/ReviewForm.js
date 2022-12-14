@@ -1,129 +1,118 @@
 import { useEffect, useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 export const ReviewForm = () => {
-    const location =  useLocation()
+    const localHandyMaamUser = localStorage.getItem("handymaam_user")
+    const localUser = JSON.parse(localHandyMaamUser)
+    const navigate = useNavigate()
+
+    // const location =  useLocation()
     let {requestId} = useParams()
-    const [customer, setCustomer] = useState({})
 
-    let userId = ""
-
-    if (location.state !== null) {userId = parseInt(location?.state?.userId)
-}
-
-    
+    const [customer, setCustomer] = useState()
+    const [request, setRequest] = useState()
+    const [review, setReview] = useState({
+        rating: 0,
+        text: "",
+    })
 
     useEffect(() => {
-            fetch(`http://localhost:8088/customers?userId=${userId}&_expand=user`)
+            fetch(`http://localhost:8088/customers?userId=${localUser.id}&_expand=user`)
                 .then(response => response.json())
                 .then((data) => {
                     setCustomer(data[0])
-        })},[] 
+                })
+            
+            fetch(`http://localhost:8088/serviceRequests?id=${requestId}&_embed=employeeRequests`)
+                .then(response => response.json())
+                .then((data) => {
+                    setRequest(data[0])
+                })
+        },
+        [] 
     )
 
-    const [review, updateReview] = useState({
-        // customerId: customer.id,
-        // employeeId: requestObject?.employeeRequests?.employeeId,
-        // rating: 0,
-        // text: ""
+    // const [review, setReview] = useState({
+    //     customerId: 0,
+    //     employeeId: 0,
+    //     rating: 0,
+    //     text: ""
+    // })
+
+    
+
+    const handleSaveButtonClick = (event) => {
+        event.preventDefault() 
+        
+
+        // TODO: Create the object to be saved to the API
+
+        const reviewToSendToAPI = {
+            customerId: customer.id,
+            employeeId: request?.employeeRequests[0].employeeId,
+            rating: review?.rating,
+            text: review?.text,
+            serviceRequestId: request?.id
+        }
+
+
+
+        // TODO: Perform the fetch() to POST the object to the API
+    
+    return fetch(`http://localhost:8088/reviews`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reviewToSendToAPI)
     })
-    // const handleRegister = (e) => {
-    //     e.preventDefault()
+        .then(response => response.json())
+        .then(() => {
+            navigate("/profile")
+        })
+    }
 
-    //     return fetch(`http://localhost:8088/users?email=${user.email}`)
-    //         .then(res => res.json())
-    //         .then(response => {
-    //             if (response.length > 0) {
-    //                 // Duplicate email. No good.
-    //                 window.alert("Account with that email address already exists")
-    //             }
-    //             else {
-    //                 // Good email, create user.
-    //                 registerNewUser()
-    //             }
-    //         })
-            
-    // }
+    const updateReview = (evt) => {
+        const copy = {...review}
+        copy[evt.target.id] = evt.target.value
+        setReview(copy)
+    }
 
-    // const updateUser = (evt) => {
-    //     const copy = {...user}
-    //     copy[evt.target.id] = evt.target.value
-    //     setUser(copy)
-    // }
-
-    // const updateCustomer = (evt) => {
-    //     const copy = {...customer}
-    //     copy[evt.target.id] = evt.target.value
-    //     setCustomer(copy)
-    // }
-
-    // const updateCustomerUserId = () => {
-    //     const copy
-    // }
+    
     return (
         <>
             
-        {/* <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
-                <div>Already a user?</div><Link to="/login" state={{ from: `${from}/register` }}>Sign in</Link>
-                <fieldset>
-                    <label htmlFor="firstName"> First Name </label>
-                    <input onChange={updateUser}
-                           type="text" id="firstName" className="form-control"
-                           placeholder="First name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="lastName"> Last Name </label>
-                    <input onChange={updateUser}
-                           type="text" id="lastName" className="form-control"
-                           placeholder="Last name" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input onChange={updateUser}
-                        type="email" id="email" className="form-control"
-                        placeholder="Email address" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="streetAddress"> Street Address</label>
-                    <input onChange={updateCustomer}
-                        type="text" id="streetAddress" className="form-control"
-                        placeholder="Street Address" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="city"> City</label>
-                    <input onChange={updateCustomer}
-                        type="text" id="city" className="form-control"
-                        placeholder="City" required />
-                </fieldset>
-                <label htmlFor="state">State</label><br></br>
-                <select onChange={updateCustomer}>
-                    <option value={0} type="select" id="stateId" className="form-control" required>choose your state</option>
-                        {
-                            states.map((state) => <option key={`state--${state.id}`} value={state.id}>{state.code}</option>)
-                        }       
+        <main style={{ textAlign: "center" }}>
+            <form className="form--login" onSubmit={handleSaveButtonClick}>
+                <h1 className="h3 mb-3 font-weight-normal">Rate and Review your Handy Ma'am</h1>
+                <label htmlFor="text"> Rating </label>
+                <select onChange={updateReview} id="rating">
+                    <option value={0} type="select" id="rating" className="form-control" required>0</option>
+                    <option value={1} type="select" id="rating" className="form-control" required>1</option>
+                    <option value={2} type="select" id="rating" className="form-control" required>2</option>
+                    <option value={3} type="select" id="rating" className="form-control" required>3</option>
+                    <option value={4} type="select" id="rating" className="form-control" required>4</option>
+                    <option value={5} type="select" id="rating" className="form-control" required>5</option>
                 </select>
+                {/* <fieldset>
+                    <label htmlFor="rating"> Rating</label>
+                    <input onChange={updateReview}
+                           type="text" id="rating" className="form-control"
+                           placeholder="rating" required autoFocus />
+                </fieldset> */}
                 <fieldset>
-                    <label htmlFor="zipCodeId"> Zip Code</label>
-                    <input onChange={updateUser}
-                        type="text" id="zipCodeId" maxLength={5} className="form-control"
-                        placeholder="Zip Code" required />
+                    <label htmlFor="text"> Review </label>
+                    <input onChange={updateReview}
+                           type="text" id="text" className="form-control"
+                           placeholder="Review" required />
                 </fieldset>
-                <fieldset>
-                    <label htmlFor="phoneNumber"> Phone Number</label>
-                    <input onChange={updateCustomer} 
-                        type="text" id="phoneNumber" maxLength={14} className="form-control"
-                        placeholder="Phone Number" required />
-                </fieldset>
-                <fieldset>
-                    <button type="submit"
-                    onClick={(clickEvent) => handleRegister(clickEvent)}
-                    className="btn btn-primary">Register </button>
-                </fieldset>
-            </form>
-        </main> */}
-
-                    </>
+                <button
+                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                className="btn btn-primary">
+                Submit Review
+            </button>
+                </form>
+        </main>
+        </>
     )
 }

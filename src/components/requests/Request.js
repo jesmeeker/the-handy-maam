@@ -121,9 +121,14 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
         } else if (requestObject?.employeeRequests?.length > 0 && requestObject.isComplete === false){
             return `STATUS: IN PROCESS. Assigned to ${assignedEmployee !== null ? assignedEmployee?.user?.firstName : ""}`
         } else {
-            return `STATUS: COMPLETE. Completed by ${assignedEmployee !== null ? assignedEmployee?.user?.firstName : ""}`
+            // return `STATUS: COMPLETE. Completed by ${assignedEmployee !== null ? assignedEmployee?.user?.firstName : ""}`
+            return ""
         }
     }
+
+    let id = 0 
+
+    if (assignedEmployee !== null) {id = assignedEmployee.id}     
 
     const display = () => {
         if (currentUser.staff) {
@@ -131,10 +136,12 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
             return <>
                     <section key={`key--${requestObject.id}`} className="ticket">
                         <header>
-                            <Link to={`/request/${requestObject.id}`} state={{requestNumber: {requestNumber}}}>Request {requestNumber}
+                            <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestNumber}
                         </Link>
                         </header>
                             <section>{requestObject?.description}</section>
+                            <div>{id}</div>
+
                         <footer>
                             {
                                 claimButton()
@@ -155,7 +162,11 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
             return <>
                 <section key={`key--${requestObject?.serviceRequest?.id}`} className="tickets">
                     <header>Request {requestNumber}</header>
+                    <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestNumber}
+                        </Link>
                         <section>{requestObject?.serviceRequest?.description}</section>
+                        <div>{id}</div>
+
                             <footer>
                             {
                                 editButton()
@@ -173,12 +184,13 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     }
         else {
             return <>
-                    <section key={`key--${requestObject.id}`} className="ticket">
+                    <section key={`key--${requestObject.id}`} className="request">
                         <header>
-                            <Link to={`/request/${requestObject.id}`} state={{requestNumber: {requestNumber}}}>Request {requestNumber}
+                            <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestNumber}
                         </Link>
                         </header>
                             <section>{requestObject?.description}</section>
+                            <div>{id}</div>
                         <footer>
                             {
                                 claimButton()
@@ -192,8 +204,9 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             {
                                 deleteButton()
                             }
-                            {
-                                submitReviewButton()
+                            { requestObject?.reviews.length 
+                                ?   ""
+                                :   submitReviewButton()
                             }
                         </footer>
                     </section>

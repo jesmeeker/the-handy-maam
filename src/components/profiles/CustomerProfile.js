@@ -27,7 +27,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
     )
 
     useEffect(() => {
-        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests`)
+        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests&_embed=reviews`)
         .then(response => response.json())
         .then((data) => {
             setCustomerRequests(data)
@@ -47,7 +47,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
     )
 
     const getAllRequests = () => {
-        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}_embed=employeeRequests`)
+        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests&_embed=reviews`)
             .then(response => response.json())
             .then((ticketArray) => {
                 setCustomerRequests(ticketArray)
