@@ -7,10 +7,12 @@ export const Login = (props) => {
     const [email, set] = useState("")
     const navigate = useNavigate()
     const location =  useLocation()
+    
     let from = ""
   
 
     if (location.state !== null) {from = location.state.from}
+    
     
 
     const handleLogin = (e) => {
