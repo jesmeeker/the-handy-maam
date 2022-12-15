@@ -140,8 +140,6 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                         </Link>
                         </header>
                             <section>{requestObject?.description}</section>
-                            <div>{id}</div>
-
                         <footer>
                             {
                                 claimButton()
@@ -165,9 +163,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                     <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestNumber}
                         </Link>
                         <section>{requestObject?.serviceRequest?.description}</section>
-                        <div>{id}</div>
-
-                            <footer>
+                         <footer>
                             {
                                 editButton()
                             }
@@ -190,7 +186,6 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                         </Link>
                         </header>
                             <section>{requestObject?.description}</section>
-                            <div>{id}</div>
                         <footer>
                             {
                                 claimButton()
