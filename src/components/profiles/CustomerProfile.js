@@ -27,7 +27,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
     )
 
     useEffect(() => {
-        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests&_embed=reviews`)
+        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests&_embed=reviews&_expand=specialty`)
         .then(response => response.json())
         .then((data) => {
             setCustomerRequests(data)
@@ -47,7 +47,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
     )
 
     const getAllRequests = () => {
-        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests&_embed=reviews`)
+        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests&_embed=reviews&_embed=specialties`)
             .then(response => response.json())
             .then((ticketArray) => {
                 setCustomerRequests(ticketArray)
@@ -66,7 +66,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
                                 <article className="subpage--profile">
                                     <div>{customer?.user?.firstName} {customer?.user?.lastName}</div>
                                     <div>{customer?.streetAddress}</div> 
-                                    <div>{customer?.city} , {customer?.stateCode} {customer?.zipCode}</div> 
+                                    <div>{customer?.city} , {customer?.stateCode} {customer?.user?.zipCode}</div> 
                                     <br></br>
                                     <div>{customer?.user?.email}</div>
                                     <div>{customer?.phoneNumber}</div>
@@ -95,7 +95,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
                                 <article className="reviews">
                                     {
                                         customerReviews.map((review) => <div>
-                                            `${review?.text.substring(0, charMax)}...``
+                                            `{review?.text.substring(0, charMax)}...``
                                         </div>)
                                     }    
                                 </article>

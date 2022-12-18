@@ -87,6 +87,10 @@ export const EmployeeProfile = ({ UserId, currentUser }) => {
     let charMax = 30
     let i = 1
 
+    function refreshPage() {
+        window.location.reload(false)
+      }
+
     return <>
                 <section className="subpage--section">                
                     <article className='subpage--article'>
@@ -94,7 +98,7 @@ export const EmployeeProfile = ({ UserId, currentUser }) => {
                             <h2 className="subpage--subheader">My Info</h2>
                                 <article className="subpage--profile">
                                     <div>Name: {employee?.user?.firstName} {employee?.user?.lastName}</div>
-                                    <div>Title: {employee?.title}/hour</div> 
+                                    <div>Title: {employee?.title}</div> 
                                     <div>Pay Rate: ${employee?.hourlyRate}/hour</div> 
                                     <div>Specialty: {employee?.specialty?.name}</div> 
                                     <br></br>
@@ -120,7 +124,8 @@ export const EmployeeProfile = ({ UserId, currentUser }) => {
                                                 employees={employees}
                                                 getAllRequests={getAllRequests}
                                                 value={value} 
-                                                requestNumber={i++}/>
+                                                requestNumber={i++}
+                                                />
                                                 )
                                     }
                                 </article>

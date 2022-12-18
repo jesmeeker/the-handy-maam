@@ -11,7 +11,9 @@ export const RequestDetail = () => {
     // console.log(employeeId)
 
     const [request, updateRequest] = useState({})
-    const [employeeRequest, updateEmployeeRequest] = useState({})
+    const [employeeRequest, updateEmployeeRequest] = useState({
+        id: 0
+    })
     const [employee, updateEmployee] = useState({})
     const [customer, updateCustomer] = useState({})
     // let employeeObject = ""
@@ -25,7 +27,6 @@ export const RequestDetail = () => {
                     const employeeData = singleRequest.employeeRequests[0]
                     updateRequest(singleRequest)
                     updateEmployeeRequest(employeeData)
-
                 })
         },
         []
@@ -35,7 +36,7 @@ export const RequestDetail = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/employees/?id=${employeeRequest.employeeId}&_expand=user`)
+            fetch(`http://localhost:8088/employees/?id=${employeeRequest?.employeeId}&_expand=user`)
                 .then(response => response.json())
                 .then((data) => {
                     const singleRequest = data[0]
@@ -60,12 +61,21 @@ export const RequestDetail = () => {
     return <section className="request">
         <h2>Request Information</h2>
     <header className="request--header">Description: {request?.description}</header>
-    <div>Invoice No. {request?.invoice?.invoiceNumber}</div>
-    <div>Assigned Employee: {employee?.user?.firstName} {employee?.user?.lastName}</div>
+    {/* {
+        if (request?.isComplete = true) {
+        `<div>Invoice No. ${request?.invoice?.invoiceNumber}</div>`} 
+        else {""}
+    } */}
+    
+    {
+        employee
+        ? <div>Assigned Employee: {employee?.user?.firstName} {employee?.user?.lastName}</div>
+        : ""
+    }
     <div></div>
     <h2>Customer Information</h2>
     <div>Name: {customer?.user?.firstName}  {customer?.user?.lastName}</div>
-    <div>Customer Service Address: {customer?.streetAddress} {customer?.city}, {customer?.stateCode} {customer?.user?.zipCodeId}</div>
+    <div>Customer Service Address: {customer?.streetAddress} {customer?.city}, {customer?.stateCode} {customer?.user?.zipCode}</div>
     <div>Customer Phone No. {request?.customer?.phoneNumber}</div>
     
     </section>
