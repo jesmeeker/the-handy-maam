@@ -20,9 +20,9 @@ export const UnauthorizedUserNav = () => {
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/services">services</Link>
             </li>
-            <li className="navbar__item active">
+            {/* <li className="navbar__item active">
                 <Link className="navbar__link" to="/reviews">reviews</Link>
-            </li>
+            </li> */}
             
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/login">Sign In</Link>

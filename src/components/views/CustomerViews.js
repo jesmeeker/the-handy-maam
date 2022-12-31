@@ -10,8 +10,10 @@ import { Services } from "../pages/Services"
 import { EditProfileForm } from "../profiles/EditProfileForm"
 import { Profile } from "../profiles/Profile"
 import { EditRequestForm } from "../requests/EditRequestForm"
+import { RequestDetail } from "../requests/RequestDetail"
 import { RequestForm } from "../requests/RequestForm"
 import { Success } from "../requests/Success"
+import { ReviewForm } from "../reviews/ReviewForm"
 
 export const CustomerViews = () => {
 	const localHandyMaamUser = localStorage.getItem("handymaam_user")
@@ -24,7 +26,7 @@ export const CustomerViews = () => {
             
             <Route path="*" element={
 				<>
-                                <div>CUSTOMER VIEW</div>
+                                <div></div>
 
                 <Outlet />
             </>
@@ -42,6 +44,8 @@ export const CustomerViews = () => {
                 <Route path="employees/:employeeId" element={ <EmployeeDetails /> } />
                 <Route path="profile/edit" element={ <EditProfileForm />} />
                 <Route path="request/:requestId/edit" element={ <EditRequestForm />} />
+                <Route path="request/:requestId/submitreview" element={ <ReviewForm />} />
+                <Route path="request/:id" element={ <RequestDetail/>}  />
                 </Route>
         	</Routes>
         </>

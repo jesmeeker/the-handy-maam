@@ -158,7 +158,7 @@ export const EditRequestForm = () => {
         setFeedback("Ticket information successfully updated")
     })
         .then(() => {
-            setTimeout(() => navigate("/profile"), 4000);
+            setTimeout(() => navigate("/profile"), 1000);
         })
     }
 

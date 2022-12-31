@@ -8,10 +8,14 @@ export const EducationVideos = ( {educationObject , categoryId}) => {
 
     return <>
         <section className="employeeCard">
-            <Link to={`/education/${educationObject.id}`}>
-                `<img src={educationObject?.thumbnailImage} alt={educationObject.title} className="employeeImg" width="200px"></img>`
-            </Link>
-            <Link to={`/education/${educationObject.id}`} className="educationLink">{educationObject?.title}</Link>
+               
+            <a target="_blank" href={educationObject.url}><img src={educationObject?.thumbnailImage} alt={educationObject.title} className="employeeImg" width="200px"></img></a>
+            
+            {/* <Link to={{ pathname:`https://${educationObject.url}`}} target="blank">
+                <img src={educationObject?.thumbnailImage} alt={educationObject.title} className="employeeImg" width="200px"></img>`
+            </Link> */}
+            <Link to={{pathname: `${educationObject.url}`}} target
+            ='_blank' className="educationLink">{educationObject?.title}</Link>
             <section>{educationObject.description}</section>
         </section>
     </>

@@ -10,7 +10,7 @@ export const RequestForm = ({state}) => {
         specialtyId: 0,
         isComplete: false,
         dateCompleted: "",
-        invoiceId: 0
+        invoiceId: 1
     })
 
     const [specialties, setSpecialties] = useState([])

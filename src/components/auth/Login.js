@@ -7,10 +7,12 @@ export const Login = (props) => {
     const [email, set] = useState("")
     const navigate = useNavigate()
     const location =  useLocation()
+    
     let from = ""
   
 
     if (location.state !== null) {from = location.state.from}
+    
     
 
     const handleLogin = (e) => {
@@ -58,7 +60,7 @@ export const Login = (props) => {
                     </fieldset>
                 </form>
             </section>
-            <div>customer - ashley_martino@gmail.com</div>
+            <div>customer - leviMeeker@gmail.com</div>
             <section className="link--register">
                 <Link to="/register" state={{ from: "login" }}>Not a member yet?</Link>
             </section>

@@ -27,7 +27,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
     )
 
     useEffect(() => {
-        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests`)
+        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests&_embed=reviews&_expand=specialty`)
         .then(response => response.json())
         .then((data) => {
             setCustomerRequests(data)
@@ -47,7 +47,7 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
     )
 
     const getAllRequests = () => {
-        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}_embed=employeeRequests`)
+        fetch(`http://localhost:8088/serviceRequests?customerId=${customer.id}&_embed=employeeRequests&_embed=reviews&_embed=specialties`)
             .then(response => response.json())
             .then((ticketArray) => {
                 setCustomerRequests(ticketArray)
@@ -59,44 +59,48 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
 
     return <>
                 < RequestButton /><br></br>
-                    <section className="subpage--section">
+                <section className="subpage--section">                
+                    <article className='subpage--article'>
                         <h1 className="subpage--header">My Profile</h1>
-                            
-                            <h1 className="subpage--header">My info</h1>
-                                <button
-                                    onClick={() =>
-                                        navigate("/profile/edit")}>Edit</button>
-                                {/* this button will go to EditProfileForm */}
-                                <br></br> 
-                                        <div>{customer?.user?.firstName} {customer?.user?.lastName}</div>
-                                        <div>{customer?.streetAddress}</div> 
-                                        <div>{customer?.city} , {customer?.stateCode} {customer?.zipCode}</div> 
-                                        <br></br>
-                                        <div>{customer?.user?.email}</div>
-                                        <div>{customer?.phoneNumber}</div>
-                             <h1 className="subpage--header">My Requests</h1>
-                             <br></br> 
-                             <article className="requests">
-                                {
-                                    customerRequests.map(
-                                        (request) => <Request 
-                                            requestNumber={i++}
-                                            currentUser={currentUser}
-                                            requestObject={request}
-                                            employees={employees}
-                                            getAllRequests={getAllRequests} />
-                                            )
-                                }
-                            </article>
-                             <h1 className="subpage--header">My Reviews</h1>
-                             <br></br> 
-                             <br></br> 
-                                {
-                                    customerReviews.map((review) => <div>
-                                        `${review?.text.substring(0, charMax)}...``
-                                    </div>)
-                                }        
-                    </section>
+                            <h2 className="subpage--subheader">My Info</h2>
+                                <article className="subpage--profile">
+                                    <div>{customer?.user?.firstName} {customer?.user?.lastName}</div>
+                                    <div>{customer?.streetAddress}</div> 
+                                    <div>{customer?.city} , {customer?.stateCode} {customer?.user?.zipCode}</div> 
+                                    <br></br>
+                                    <div>{customer?.user?.email}</div>
+                                    <div>{customer?.phoneNumber}</div>
+                                        <button
+                                            onClick={() =>
+                                                navigate("/profile/edit")}>Edit
+                                        </button>
+                                            <br></br> 
+                                </article>
+                            <h2 className="subpage--subheader">My Requests</h2>
+                                <article className="requests">
+                                    {
+                                        customerRequests.map(
+                                            (request) => <Request 
+                                                requestNumber={i++}
+                                                currentUser={currentUser}
+                                                requestObject={request}
+                                                employees={employees}
+                                                getAllRequests={getAllRequests} />
+                                                )
+                                    }
+                                </article>
+                            <h2 className="subpage--subheader">My Reviews</h2>
+                                    <br></br> 
+                                    <br></br> 
+                                <article className="reviews">
+                                    {
+                                        customerReviews.map((review) => <div>
+                                            `{review?.text.substring(0, charMax)}...``
+                                        </div>)
+                                    }    
+                                </article>
+                    </article>    
+                </section>
             </>
     
 }

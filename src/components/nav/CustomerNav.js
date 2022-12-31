@@ -24,9 +24,9 @@ export const CustomerNav = () => {
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/services">services</Link>
             </li>
-            <li className="navbar__item active">
+            {/* <li className="navbar__item active">
                 <Link className="navbar__link" to="/reviews">reviews</Link>
-            </li>
+            </li> */}
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/profile">Profile</Link>
             </li>
@@ -37,9 +37,9 @@ export const CustomerNav = () => {
                 localStorage.getItem("handymaam_user")
                     ? <li className="navbar__item navbar__logout">
                         <Link className="navbar__link" to="" onClick={() => {
-                            refreshPage()
                             localStorage.removeItem("handymaam_user")
-                            navigate("/ ")
+                            navigate("/")
+                            refreshPage()
                         }}>Logout</Link>
                     </li>
                     : ""

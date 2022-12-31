@@ -64,6 +64,11 @@ body {
   font-size: 8rem
 }
 
+.subheader {
+  font-family: "Sacramento";
+  font-size: 6rem
+}
+
 .requestButton {
   height: 10rem;
   width: 30rem;
@@ -157,3 +162,6 @@ p {
   font-weight: 1000;
 }
 
+.request {
+  margin-top: 1rem
+}
