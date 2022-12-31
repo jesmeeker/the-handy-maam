@@ -21,6 +21,9 @@ export const EmployeeViews = () => {
                 <Route path="profile" element={ <Profile />} />
                 <Route path="profile/edit" element={ <EditProfileForm />} />
                 <Route path="request/:id" element={ <RequestDetail/>}  />
+                <Route path="requests" element={ <RequestPage />} />
+
+                <Route path="reviews" element={ <ReviewPage />} />
             </Route>
         </Routes>
     </>
