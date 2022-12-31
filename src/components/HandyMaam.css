@@ -117,6 +117,7 @@ p {
 
 .employees {
   display: flex;
+  flex-wrap: wrap;
   justify-items: space-evenly;
   flex-basis: 1em;
 }
