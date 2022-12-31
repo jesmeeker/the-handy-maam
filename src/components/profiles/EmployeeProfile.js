@@ -3,10 +3,11 @@ import { RequestButton } from "../requests/RequestButton"
 import { Request } from "../requests/Request"
 import { Navigate, useNavigate } from "react-router-dom"
 import ToggleSwitch from "../Switches/ToggleSwitch"
+import { ImageUpload } from "../images/ImageUpload"
 
 export const EmployeeProfile = ({ UserId, currentUser }) => {
     const [employee, setEmployee] = useState({})
-    const [value, setValue] = useState(true)
+    // const [value, setValue] = useState(true)
     const [requests, setRequests] = useState([])
     const [employeeRequests, setEmployeeRequests] = useState([])
     const [filteredRequests , setFilteredRequests] = useState([])
@@ -51,30 +52,30 @@ export const EmployeeProfile = ({ UserId, currentUser }) => {
     [employee]
     )
 
-    useEffect(() => {
-        fetch(`http://localhost:8088/reviews?employeeId=${employee.id}`)
-        .then(response => response.json())
-        .then((data) => {
-            setEmployeeReviews(data)
-        }) 
-    },
-    [employee]
-    )
+    // useEffect(() => {
+    //     fetch(`http://localhost:8088/reviews?employeeId=${employee.id}`)
+    //     .then(response => response.json())
+    //     .then((data) => {
+    //         setEmployeeReviews(data)
+    //     }) 
+    // },
+    // [employee]
+    // )
 
-    useEffect(
-        () => {
+    // useEffect(
+    //     () => {
 
-            getAllRequests()
+    //         getAllRequests()
 
-            if (value === true) {
-                setFilteredRequests(requests)
-            }
-            else {
-                setFilteredRequests(employeeRequests)
-            }
-        },
-        [value]
-    )
+    //         if (value === true) {
+    //             setFilteredRequests(requests)
+    //         }
+    //         else {
+    //             setFilteredRequests(employeeRequests)
+    //         }
+    //     },
+    //     [value]
+    // )
 
     const getAllRequests = () => {
         fetch(`http://localhost:8088/serviceRequests`)
@@ -84,33 +85,41 @@ export const EmployeeProfile = ({ UserId, currentUser }) => {
             })
     }
 
-    let charMax = 30
     let i = 1
+
+    function refreshPage() {
+        window.location.reload(false)
+      }
 
     return <>
                 <section className="subpage--section">                
                     <article className='subpage--article'>
                         <h1 className="subpage--header">My Profile</h1>
                             <h2 className="subpage--subheader">My Info</h2>
+                            `<img src={employee?.user?.image} alt={employee?.user?.firstName} className="employeeImg" width="200px"></img>`
                                 <article className="subpage--profile">
                                     <div>Name: {employee?.user?.firstName} {employee?.user?.lastName}</div>
-                                    <div>Title: {employee?.title}/hour</div> 
+                                    <div>Title: {employee?.title}</div> 
                                     <div>Pay Rate: ${employee?.hourlyRate}/hour</div> 
                                     <div>Specialty: {employee?.specialty?.name}</div> 
                                     <br></br>
                                     <div>Email: {employee?.user?.email}</div>
+    <div>
+        {/* <ImageUpload /> */}
+    </div>
                                         <button
                                             onClick={() =>
                                                 navigate("/profile/edit")}>Edit
                                         </button>
                                             <br></br> 
+                                            
                                 </article>
-                            <h2 className="subpage--subheader">Requests</h2>
+                                
+                            {/* <h2 className="subpage--subheader">Requests</h2>
                                 <section><React.Fragment>
                                     <ToggleSwitch value={value} setValue={setValue}
                                     label="All Requests" label2="My Requests"/>
                                 </React.Fragment></section>
-                                    {/* PUT A TOGGLE HERE  FOR MY/ALL REQUESTS*/}
                                 <article className="requests">
                                     {
                                         filteredRequests.map(
@@ -120,11 +129,12 @@ export const EmployeeProfile = ({ UserId, currentUser }) => {
                                                 employees={employees}
                                                 getAllRequests={getAllRequests}
                                                 value={value} 
-                                                requestNumber={i++}/>
+                                                requestNumber={i++}
+                                                />
                                                 )
-                                    }
-                                </article>
-                            <h2 className="subpage--subheader">My Reviews</h2>
+                                    }</article> */}
+
+                            {/* <h2 className="subpage--subheader">My Reviews</h2>
                                     <br></br> 
                                     <br></br> 
                                 <article className="reviews">
@@ -133,7 +143,7 @@ export const EmployeeProfile = ({ UserId, currentUser }) => {
                                             `${review?.text.substring(0, charMax)}...``
                                         </div>)
                                     }    
-                                </article>
+                                </article> */}
                     </article>    
                 </section>
             </>

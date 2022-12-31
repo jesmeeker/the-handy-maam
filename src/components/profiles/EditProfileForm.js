@@ -28,7 +28,8 @@ export const EditProfileForm = () => {
         bio: "",
         specialtyId: 0,
         title: "",
-        userId: 0
+        userId: 0,
+        zipCode: 0
     })
     const [feedback, setFeedback] = useState("")
 
@@ -58,6 +59,7 @@ export const EditProfileForm = () => {
     const localHandyMaamUser = localStorage.getItem("handymaam_user")
     const localUser = JSON.parse(localHandyMaamUser)
 
+    
     // TODO: Get employee profile info from API and update state
     useEffect(() => {
         fetch(`http://localhost:8088/users?id=${localUser.id}`)
@@ -86,7 +88,9 @@ export const EditProfileForm = () => {
         },
         [user]
         )
-
+        function refreshPage() {
+            window.location.reload(false)
+        }
     const handleSubmit = (event) => {
         event.preventDefault()
         localUser.staff
@@ -114,6 +118,7 @@ export const EditProfileForm = () => {
                             setTimeout(() => navigate("/profile"), 1000);
                             
                         })
+                        
             :
                     fetch(`http://localhost:8088/users/${localUser.id}`, {
                         method: "PUT",
@@ -274,10 +279,10 @@ export const EditProfileForm = () => {
                             }       
                     </select>
                     <fieldset>
-                    <label htmlFor="zipCodeId"> Zip Code</label>
+                    <label htmlFor="zipCode"> Zip Code</label>
                     <input onChange={updateUserCopy}
-                        type="text" id="zipCodeId" maxLength={5} className="form-control"
-                        placeholder="Zip Code" required />
+                        type="text" id="zipCode" maxLength={5} className="form-control"
+                        placeholder={user?.zipCode} required />
                 </fieldset>
                     <fieldset>
                         <label htmlFor="phoneNumber"> Phone Number</label>

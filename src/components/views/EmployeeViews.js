@@ -5,7 +5,7 @@ import { EditProfileForm } from "../profiles/EditProfileForm"
 import { Profile } from "../profiles/Profile"
 import { RequestDetail } from "../requests/RequestDetail"
 import { RequestPage } from "../requests/RequestPage"
-
+import { ReviewPage } from "../reviews/ReviewPage"
 
 export const EmployeeViews = () => {
 	return <>
@@ -13,8 +13,6 @@ export const EmployeeViews = () => {
             
             <Route path="*" element={
 				<>
-                                <div>EMPLOYEE VIEW</div>
-
                 <Outlet />
             </>
         }>
@@ -23,7 +21,6 @@ export const EmployeeViews = () => {
                 <Route path="profile" element={ <Profile />} />
                 <Route path="profile/edit" element={ <EditProfileForm />} />
                 <Route path="request/:id" element={ <RequestDetail/>}  />
-                <Route path="requests" element={ <RequestPage />} />
             </Route>
         </Routes>
     </>

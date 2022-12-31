@@ -54,7 +54,7 @@ export const Success = ( {somekindofprop }) => {
                  <div><span style={{ fontWeight: 'bold' }}>Description of problem: </span></div>
                  <div> {request?.description}</div><br></br>
                  <div><span style={{ fontWeight: 'bold' }}>Service Address: </span><br></br>{customer?.streetAddress}</div>
-                 <div>{customer?.city}, {customer?.stateCode}, {zipCode?.zipCode}</div><br></br>
+                 <div>{customer?.city}, {customer?.stateCode}, {customer?.user?.zipCode}</div><br></br>
                 <div>A confirmation of this request will be sent to <span style={{ fontWeight: 'bold' }}>{customer?.user.email}</span></div><br></br>
                 <div>We will be reaching out to schedule your service date soon.<br>
                 </br>We will call you at <span style={{ fontWeight: 'bold' }}>{customer?.phoneNumber}</span>.</div><br></br>

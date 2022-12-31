@@ -16,21 +16,24 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     }
     
     const canClose = () => {
-        if (currentUser.staff){
-        if (userEmployee?.id === assignedEmployee?.id && requestObject.dateCompleted === "") {
-            return <button className="ticket__finish"
-                    onClick={closeTicket}
-                    >Close</button>
-        } else {
-            return ""
-                }        
+            if (userEmployee?.id === assignedEmployee?.id && requestObject.dateCompleted === "") {
+                return <button className="ticket__finish"
+                        onClick={closeTicket}
+                        >Close</button>
+            } else if (userEmployee?.id === requestObject?.employeeId && requestObject?.serviceRequest?.isComplete === false) {
+                return <button className="ticket__finish"
+                        onClick={secondCloseTicket}
+                        >Close</button>
+            } else {
+                return ""
+                    }        
         }
-    }
+
     
     const deleteButton = () => {
         if (!currentUser.staff && !requestObject.isComplete) {
             return <button onClick={() => {
-                fetch(`http://localhost:8088/serviceRequests/${requestObject.id}`, {
+                fetch(`http://localhost:8088/serviceRequests/${requestObject?.id}`, {
                     method: "DELETE",
                 })
                     .then(() => {
@@ -39,9 +42,9 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                     .then(refreshPage)
             }} className="ticket__delete">Cancel Request</button> 
         } 
-        else if (currentUser.staff && !requestObject.isComplete && requestObject?.employeeRequests.length === 0) {
+        else if (currentUser.staff && !requestObject.isComplete && requestObject?.employeeRequests?.length === 0) {
             return <button onClick={() => {
-                fetch(`http://localhost:8088/serviceRequests/${requestObject.id}`, {
+                fetch(`http://localhost:8088/serviceRequests/${requestObject?.id}`, {
                     method: "DELETE",
             })
                 .then(() => {
@@ -91,11 +94,38 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                 .then(getAllRequests)
                 .then(refreshPage)
         }
+
+    const secondCloseTicket = () => {
+            const copy = {
+                    customerId: requestObject.serviceRequest.customerId,
+                    description: requestObject.serviceRequest.description,
+                    specialtyId: requestObject.serviceRequest.specialtyId,
+                    dateCompleted: new Date(),
+                    isComplete: true,
+                    invoiceId: requestObject.serviceRequest.invoiceId
+                }
+        
+                fetch(`http://localhost:8088/serviceRequests/${requestObject.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(copy)
+        
+                })
+                    .then(response => response.json)
+                    .then(getAllRequests)
+                    .then(refreshPage)
+            }
     
     const submitReviewButton = () => {
+        if (requestObject?.isComplete === true) {
         return <button><Link to={`/request/${requestObject.id}/submitreview`} state={`{ userId: ${currentUser.id}}`}>Submit Review
                     </Link>
-                    </button>
+                    </button>}
+                    else {
+                        return ""
+                    }
     }
     const claimButton = () => {
         if (currentUser.staff && requestObject?.employeeRequests?.length === 0) {
@@ -131,15 +161,16 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     if (assignedEmployee !== null) {id = assignedEmployee.id}     
 
     const display = () => {
-        if (currentUser.staff) {
+        if (currentUser?.staff) {
             if (value === true) {
             return <>
-                    <section key={`key--${requestObject.id}`} className="ticket">
+                    <section key={`key--${requestObject.id}`} className="request">
                         <header>
-                            <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestNumber}
+                            <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestObject?.id}
                         </Link>
                         </header>
                             <section>{requestObject?.description}</section>
+                            {/* <section>Specialty Category: {requestObject?.specialty?.name}</section> */}
                         <footer>
                             {
                                 claimButton()
@@ -158,18 +189,19 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
         </>
         } else {
             return <>
-                <section key={`key--${requestObject?.serviceRequest?.id}`} className="tickets">
-                    <header>Request {requestNumber}</header>
-                    <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestNumber}
-                        </Link>
+                <section key={`key--${requestObject?.id}`} className="request">
+                    <header>
+                    <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestObject?.serviceRequest?.id}
+                        </Link></header>
                         <section>{requestObject?.serviceRequest?.description}</section>
+                        {/* <section>Specialty Category: {requestObject?.specialty?.name}</section> */}
                          <footer>
                             {
                                 editButton()
                             }
-                            {/* {
+                            {
                                 canClose()
-                            } */}
+                            }
                             {
                                 deleteButton()
                             }
@@ -186,6 +218,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                         </Link>
                         </header>
                             <section>{requestObject?.description}</section>
+                            <section>Specialty Category: {requestObject?.specialty?.name}</section>
                         <footer>
                             {
                                 claimButton()
@@ -193,14 +226,14 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             {
                                 editButton()
                             }
-                            {
+                            {/* {
                                 canClose()
-                            }
+                            } */}
                             {
                                 deleteButton()
                             }
-                            { requestObject?.reviews.length 
-                                ?   ""
+                            { (requestObject?.reviews.length)
+                                ?   <div>~Review Submitted~</div>
                                 :   submitReviewButton()
                             }
                         </footer>
@@ -213,6 +246,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                 {
                     display()
                 } 
+
             </>
 }
 

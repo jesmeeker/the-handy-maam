@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react"
 import { isCompositeComponent } from "react-dom/test-utils"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+import { ImageUpload } from "../images/ImageUpload"
 import { NavBar } from "../nav/NavBar"
 import { UnauthorizedUserNav } from "../nav/UnauthorizedNav"
 import "./Login.css"
 
-export const Register = (props) => {
+export const Register = () => {
+    const [profileImage, setProfileImage] = useState(null)
+
     const [user, setUser] = useState({
         email: "",
         firstName: "",
-        lastName: "",
-        zipCodeId: 0,
+        lastName: "",   
+        zipCode: 0,
+        zipCodeId: 1,
         isStaff: false,
         image: "",
     })
@@ -18,18 +22,18 @@ export const Register = (props) => {
     const [customer, setCustomer] = useState({
         streetAddress: "",
         city: "",
-        stateId: 0,
+        stateCode: "",
         phoneNumber: ""
     })
 
     const [states, setStates] = useState([])
     const location = useLocation()
 
-    let from = null
-    console.log(from)
+    let { state } = ""
+    
 
-    if (location.state !== null) {from = location.state.from}
-    console.log(from)
+    if (location.state !== null) {state = location.state}
+    console.log(state)
 
     useEffect(
         () => {
@@ -42,11 +46,23 @@ export const Register = (props) => {
         []
     )
 
+    useEffect(() => {
+        const copy = {...user}
+        copy.image = profileImage
+        setUser(copy)
+    },
+    [profileImage]
+    )
+
     let navigate = useNavigate()
 
     
 
     const registerNewUser = () => {
+        // const copy = {...user}
+        // copy.image = profileImage
+        // setUser(copy)
+
         fetch("http://localhost:8088/users", {
             method: "POST",
             headers: {
@@ -81,13 +97,13 @@ export const Register = (props) => {
                                     body: JSON.stringify({
                                         streetAddress: customer.streetAddress,
                                         city: customer.city,
-                                        stateId: customer.stateId,
+                                        stateCode: customer.stateCode,
                                         phoneNumber: customer.phoneNumber
                                     })
                                 })
                                     .then(res => res.json())    
                                     .then(() => {
-                                        if (from  === "login") {
+                                        if (state  === "login") {
                                             navigate("/profile")}
                                         else {
                                             navigate("/request")
@@ -123,6 +139,7 @@ export const Register = (props) => {
     const updateUser = (evt) => {
         const copy = {...user}
         copy[evt.target.id] = evt.target.value
+        // copy.image = profileImage
         setUser(copy)
     }
 
@@ -141,7 +158,7 @@ export const Register = (props) => {
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
-                <div>Already a user?</div><Link to="/login" state={{ from: `${from}/register` }}>Sign in</Link>
+                <div>Already a user?</div><Link to="/login" state={{ from: `${state}/register` }}>Sign in</Link>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
                     <input onChange={updateUser}
@@ -172,17 +189,17 @@ export const Register = (props) => {
                         type="text" id="city" className="form-control"
                         placeholder="City" required />
                 </fieldset>
-                <label htmlFor="state">State</label><br></br>
-                <select onChange={updateCustomer}>
-                    <option value={0} type="select" id="stateId" className="form-control" required>choose your state</option>
+                <label htmlFor="stateCode">State</label><br></br>
+                <select onChange={updateCustomer} id="stateCode" >
+                    <option value={0} type="select" id="stateCode" className="form-control" required>choose your state</option>
                         {
-                            states.map((state) => <option key={`state--${state.id}`} value={state.id}>{state.code}</option>)
+                            states.map((state) => <option key={`state--${state.id}`} value={state.code}>{state.code}</option>)
                         }       
                 </select>
                 <fieldset>
-                    <label htmlFor="zipCodeId"> Zip Code</label>
+                    <label htmlFor="zipCode"> Zip Code</label>
                     <input onChange={updateUser}
-                        type="text" id="zipCodeId" maxLength={5} className="form-control"
+                        type="text" id="zipCode" maxLength={5} className="form-control"
                         placeholder="Zip Code" required />
                 </fieldset>
                 <fieldset>
@@ -191,6 +208,11 @@ export const Register = (props) => {
                         type="text" id="phoneNumber" maxLength={14} className="form-control"
                         placeholder="Phone Number" required />
                 </fieldset>
+                <ImageUpload 
+                    profileImageSetterFunction={setProfileImage}
+                    setUser={setUser}
+                    profileImage={profileImage}
+                    user={user}/>                 
                 <fieldset>
                     <button type="submit"
                     onClick={(clickEvent) => handleRegister(clickEvent)}

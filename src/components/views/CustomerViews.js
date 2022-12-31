@@ -26,7 +26,7 @@ export const CustomerViews = () => {
             
             <Route path="*" element={
 				<>
-                                <div>CUSTOMER VIEW</div>
+                                <div></div>
 
                 <Outlet />
             </>

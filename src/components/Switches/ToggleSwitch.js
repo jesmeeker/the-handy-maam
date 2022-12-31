@@ -1,15 +1,19 @@
 import React from "react";
 import "./ToggleSwitch.css";
 
+function refreshPage() {
+  window.location.reload(false)
+}
 
-const ToggleSwitch = ({ label, label2, value, setValue}) => {
+const ToggleSwitch = ({ label, label2, value, setValue, refreshPage}) => {
     return (
       <div className="container">
         {label}{" "}
         <div className="toggle-switch">
           <input type="checkbox" className="checkbox" value={value}
             onChange={() => 
-                setValue(!value)}
+                setValue(!value)
+                }
                 // onChange={(value) => (!value)}
                     name={label} id={label} />
                     {/* {value ? true : false} */}
