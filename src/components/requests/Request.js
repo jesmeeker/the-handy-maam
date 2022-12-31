@@ -16,16 +16,19 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     }
     
     const canClose = () => {
-        if (currentUser.staff){
-        if (userEmployee?.id === assignedEmployee?.id && requestObject.dateCompleted === "") {
-            return <button className="ticket__finish"
-                    onClick={closeTicket}
-                    >Close</button>
-        } else {
-            return ""
-                }        
+            if (userEmployee?.id === assignedEmployee?.id && requestObject.dateCompleted === "") {
+                return <button className="ticket__finish"
+                        onClick={closeTicket}
+                        >Close</button>
+            } else if (userEmployee?.id === requestObject?.employeeId && requestObject?.serviceRequest?.isComplete === false) {
+                return <button className="ticket__finish"
+                        onClick={secondCloseTicket}
+                        >Close</button>
+            } else {
+                return ""
+                    }        
         }
-    }
+
     
     const deleteButton = () => {
         if (!currentUser.staff && !requestObject.isComplete) {
@@ -91,6 +94,29 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                 .then(getAllRequests)
                 .then(refreshPage)
         }
+
+    const secondCloseTicket = () => {
+            const copy = {
+                    customerId: requestObject.serviceRequest.customerId,
+                    description: requestObject.serviceRequest.description,
+                    specialtyId: requestObject.serviceRequest.specialtyId,
+                    dateCompleted: new Date(),
+                    isComplete: true,
+                    invoiceId: requestObject.serviceRequest.invoiceId
+                }
+        
+                fetch(`http://localhost:8088/serviceRequests/${requestObject.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(copy)
+        
+                })
+                    .then(response => response.json)
+                    .then(getAllRequests)
+                    .then(refreshPage)
+            }
     
     const submitReviewButton = () => {
         if (requestObject?.isComplete === true) {
@@ -138,7 +164,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
         if (currentUser?.staff) {
             if (value === true) {
             return <>
-                    <section key={`key--${requestObject.id}`} className="ticket">
+                    <section key={`key--${requestObject.id}`} className="request">
                         <header>
                             <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestObject?.id}
                         </Link>
@@ -163,7 +189,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
         </>
         } else {
             return <>
-                <section key={`key--${requestObject?.serviceRequest?.id}`} className="tickets">
+                <section key={`key--${requestObject?.id}`} className="request">
                     <header>
                     <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestObject?.serviceRequest?.id}
                         </Link></header>
@@ -173,9 +199,9 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             {
                                 editButton()
                             }
-                            {/* {
+                            {
                                 canClose()
-                            } */}
+                            }
                             {
                                 deleteButton()
                             }
@@ -200,9 +226,9 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             {
                                 editButton()
                             }
-                            {
+                            {/* {
                                 canClose()
-                            }
+                            } */}
                             {
                                 deleteButton()
                             }
@@ -220,6 +246,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                 {
                     display()
                 } 
+
             </>
 }
 

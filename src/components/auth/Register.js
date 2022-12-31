@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react"
 import { isCompositeComponent } from "react-dom/test-utils"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+import { ImageUpload } from "../images/ImageUpload"
 import { NavBar } from "../nav/NavBar"
 import { UnauthorizedUserNav } from "../nav/UnauthorizedNav"
 import "./Login.css"
 
 export const Register = () => {
+    const [profileImage, setProfileImage] = useState(null)
+
     const [user, setUser] = useState({
         email: "",
         firstName: "",
-        lastName: "",
+        lastName: "",   
         zipCode: 0,
         zipCodeId: 1,
         isStaff: false,
@@ -43,11 +46,23 @@ export const Register = () => {
         []
     )
 
+    useEffect(() => {
+        const copy = {...user}
+        copy.image = profileImage
+        setUser(copy)
+    },
+    [profileImage]
+    )
+
     let navigate = useNavigate()
 
     
 
     const registerNewUser = () => {
+        // const copy = {...user}
+        // copy.image = profileImage
+        // setUser(copy)
+
         fetch("http://localhost:8088/users", {
             method: "POST",
             headers: {
@@ -124,6 +139,7 @@ export const Register = () => {
     const updateUser = (evt) => {
         const copy = {...user}
         copy[evt.target.id] = evt.target.value
+        // copy.image = profileImage
         setUser(copy)
     }
 
@@ -192,6 +208,11 @@ export const Register = () => {
                         type="text" id="phoneNumber" maxLength={14} className="form-control"
                         placeholder="Phone Number" required />
                 </fieldset>
+                <ImageUpload 
+                    profileImageSetterFunction={setProfileImage}
+                    setUser={setUser}
+                    profileImage={profileImage}
+                    user={user}/>                 
                 <fieldset>
                     <button type="submit"
                     onClick={(clickEvent) => handleRegister(clickEvent)}

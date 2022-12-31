@@ -37,9 +37,9 @@ export const CustomerNav = () => {
                 localStorage.getItem("handymaam_user")
                     ? <li className="navbar__item navbar__logout">
                         <Link className="navbar__link" to="" onClick={() => {
-                            refreshPage()
                             localStorage.removeItem("handymaam_user")
-                            navigate("/ ")
+                            navigate("/")
+                            refreshPage()
                         }}>Logout</Link>
                     </li>
                     : ""

@@ -16,9 +16,12 @@ export const EmployeeNav = () => {
             <li className="navbar__item active">
                 <Link to="/"><img width="60" className="accountButton" src={logoWhite}/></Link>
             </li>
-            <li className="navbar__item active">billing</li>
-            <li className="navbar__item active">reviews</li>
-            <li className="navbar__item active">requests</li>
+            <li className="navbar__item active"><Link className="navbar__link" to="/billing">My Billing</Link></li>
+
+            <li className="navbar__item active"><Link className="navbar__link" to="/reviews">My Reviews</Link></li>
+
+            <li className="navbar__item active">
+                <Link className="navbar__link" to="/requests">Requests</Link></li>
             
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/profile">Profile</Link>
@@ -30,9 +33,9 @@ export const EmployeeNav = () => {
                 localStorage.getItem("handymaam_user")
                     ? <li className="navbar__item navbar__logout">
                         <Link className="navbar__link" to="" onClick={() => {
-                            refreshPage()
                             localStorage.removeItem("handymaam_user")
                             navigate("/")
+                            refreshPage()
                         }}>Logout</Link>
                     </li>
                     : ""
