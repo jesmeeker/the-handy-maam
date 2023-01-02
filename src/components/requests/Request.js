@@ -171,7 +171,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                         </header>
                             <section>{requestObject?.description}</section>
                             {/* <section>Specialty Category: {requestObject?.specialty?.name}</section> */}
-                        <footer>
+                        <section>
                             {
                                 claimButton()
                             }
@@ -184,7 +184,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             {
                                 deleteButton()
                             }
-                        </footer>
+                        </section>
                     </section>
         </>
         } else {
@@ -195,7 +195,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                         </Link></header>
                         <section>{requestObject?.serviceRequest?.description}</section>
                         {/* <section>Specialty Category: {requestObject?.specialty?.name}</section> */}
-                         <footer>
+                         <section>
                             {
                                 editButton()
                             }
@@ -205,7 +205,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             {
                                 deleteButton()
                             }
-                            </footer>
+                            </section>
                 </section>
             </>
         }

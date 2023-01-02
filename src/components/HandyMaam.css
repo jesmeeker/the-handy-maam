@@ -33,7 +33,7 @@ body {
 
 .subPage {
   display: grid;
-  align-items: right;
+  
 }
 
 
@@ -59,9 +59,10 @@ body {
 }
 
 
-.header {
+.subpage--header {
   font-family: "Sacramento";
-  font-size: 8rem
+  font-size: 8rem;
+  
 }
 
 .subheader {
@@ -138,9 +139,82 @@ p {
 }
 .employeeImg {
   object-fit: cover;
-  width: 300px;
-  height: 300px;
-  border-radius: 300px
+  width: 20rem;
+  height: 20rem;
+  border-radius: 20rem
+}
+
+.position-absolute {
+  position: absolute !important;
+}
+
+.color-bg-default {
+  background-color: white !important;
+}
+
+.rounded-2 {
+  border-radius: var(--primer-borderRadius-medium, 6px) !important;
+}
+
+.color-fg-default {
+  color: var(--color-fg-default) !important;
+}
+
+.py-1 {
+  padding-top: var(--base-size-4, 4px) !important;
+  padding-bottom: var(--base-size-4, 4px) !important;
+}
+
+.left-0 {
+  left: 0 !important;
+}
+
+.bottom-0 {
+  bottom: 0 !important;
+}
+
+.ml-2 {
+  margin-left: 20px;
+}
+.mb-2 {
+  margin-bottom: 20px !important;
+}
+
+.border {
+  border: var(--primer-borderWidth-thin, 1px) solid gray !important;
+}
+.px-2 {
+    padding-right: var(--base-size-8, 8px) !important;
+    padding-left: var(--base-size-8, 8px) !important;
+}
+.profileImage {
+  position: relative;
+}
+
+.siteLinks {
+  color: black;
+  text-decoration: none
+}
+
+/* .profileImage::after {
+  content: "Edit";
+  position: absolute;
+  top: 80px;
+  white-space: pre;
+  right: 15px;
+  font-weight: bold;
+  text-align: right;
+  font-size: 30px;
+} */
+.profileCard {
+  display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 1rem
+}
+
+.subpage--profile{
+  margin: 2rem
 }
 
 .employeeLink {
@@ -169,8 +243,16 @@ p {
   font-weight: 1000;
 }
 
+#content-wrap {
+  padding-bottom: 4rem;
+}
 .request {
-  margin-top: 1rem
+  margin-top: 1rem;
+  
+}
+.root {
+  position: relative;
+  min-height: 100vh;
 }
 
 footer {
@@ -179,8 +261,11 @@ footer {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-  margin-top: 1rem;
-	width: 100%;
+  position:fixed;
+  margin-top: 1.5rem;
+  bottom: 0;	
+  width: 100%;
+  height: 1.5rem;
 	font-family: "Raleway", Arial, sans-serif;
 	color: rgb(255, 255, 255);
 	letter-spacing: 2px;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { RequestButton } from "../requests/RequestButton"
 import { Request } from "../requests/Request"
-import { Navigate, useNavigate } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 
 export const CustomerProfile = ({ UserId, currentUser }) => {
     const [customer, setCustomer] = useState({})
@@ -61,22 +61,30 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
                 < RequestButton /><br></br>
                 <section className="subpage--section">                
                     <article className='subpage--article'>
-                        <h1 className="subpage--header">My Profile</h1>
+                        {/* <h1 className="subpage--header">My Profile</h1> */}
                         <h2 className="subpage--subheader">My Info</h2>
+                        <section className="profileCard">
+                            <div className="profileImage">
                             <img src={customer?.user?.image} alt={customer?.user?.firstName} className="employeeImg" />
+                            <Link class="siteLinks" to="/profile/edit"><div class="position-absolute color-bg-default rounded-2 color-fg-default px-2 py-1 left-0 bottom-0 ml-2 mb-2 border">
+                                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"></path>
+                                    </svg>
+                                    Edit Profile
+                            </div>
+                            </Link>
+                            </div>
                                 <article className="subpage--profile">
-                                    <div>{customer?.user?.firstName} {customer?.user?.lastName}</div>
+                                    <div><span style={{ fontWeight: 'bold' }}>{customer?.user?.firstName} {customer?.user?.lastName}</span></div><br></br>
                                     <div>{customer?.streetAddress}</div> 
                                     <div>{customer?.city} , {customer?.stateCode} {customer?.user?.zipCode}</div> 
                                     <br></br>
                                     <div>{customer?.user?.email}</div>
-                                    <div>{customer?.phoneNumber}</div>
-                                        <button
-                                            onClick={() =>
-                                                navigate("/profile/edit")}>Edit
-                                        </button>
+                                    <div>{customer?.phoneNumber}</div><br></br>
+                                        
                                             <br></br> 
                                 </article>
+                        </section>
                             <h2 className="subpage--subheader">My Requests</h2>
                                 <article className="requests">
                                     {

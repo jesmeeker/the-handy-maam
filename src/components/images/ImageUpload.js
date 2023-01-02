@@ -1,7 +1,7 @@
 import Axios from "axios"
 import { Image } from "cloudinary-react"
 
-export const ImageUpload = ({profileImageSetterFunction , user, setUser, profileImage}) => {
+export const ImageUpload = ({profileImageSetterFunction , profileImage}) => {
   const uploadImage = (files) => {
     const formData = new FormData()
     formData.append("file", files[0])  
@@ -16,9 +16,6 @@ export const ImageUpload = ({profileImageSetterFunction , user, setUser, profile
 
   return <div>Profile Image<br></br>
     <input type="file" onChange={(e) => {
-      // const copy = {...user}
-      // copy.image = profileImage
-      // setUser(copy)
       uploadImage(e.target.files)
     }} />
     </div>

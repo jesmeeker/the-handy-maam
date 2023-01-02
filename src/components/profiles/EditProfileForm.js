@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { Link, useFetcher, useNavigate, useRevalidator } from "react-router-dom"
+import { ImageUpload } from "../images/ImageUpload"
 
 
 export const EditProfileForm = () => {
     // TODO: Provide initial state for profile
     const navigate = useNavigate()
+    const [profileImage, setProfileImage] = useState(null)
     const [states, setStates] = useState([])
     const [specialties, setSpecialties] = useState([])
     const [user, updateUser] = useState({
@@ -55,6 +57,14 @@ export const EditProfileForm = () => {
         setTimeout(() => setFeedback(""), 3000);
     }
     }, [feedback])
+
+    useEffect(() => {
+        const copy = {...user}
+        copy.image = profileImage
+        updateUser(copy)
+    },
+    [profileImage]
+    )
 
     const localHandyMaamUser = localStorage.getItem("handymaam_user")
     const localUser = JSON.parse(localHandyMaamUser)
@@ -214,6 +224,9 @@ export const EditProfileForm = () => {
                         value={employee.bio}
                         required />
                 </fieldset>
+                <ImageUpload 
+                    profileImageSetterFunction={setProfileImage}
+                    user={user}/>  
                 <fieldset>
                         <button type="submit"
                         onClick={(clickEvent) => handleSubmit(clickEvent)}

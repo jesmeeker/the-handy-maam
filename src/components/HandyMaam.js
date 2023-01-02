@@ -16,10 +16,11 @@ export const HandyMaam = () => {
 
 		<Route path="*" element={
 			<Authorized>
-				<>
+				<><div id="content-wrap">
 					<NavBar />
 					<ApplicationViews />
-					<Footer />
+   				</div>
+   			<Footer />
 				</>
 			</Authorized>
 
