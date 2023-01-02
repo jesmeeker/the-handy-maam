@@ -136,6 +136,12 @@ p {
   border: 1px dotted black;
   border-radius: 5px;
 }
+.employeeImg {
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
+  border-radius: 300px
+}
 
 .employeeLink {
   color: black;
@@ -165,4 +171,29 @@ p {
 
 .request {
   margin-top: 1rem
+}
+
+footer {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+  margin-top: 1rem;
+	width: 100%;
+	font-family: "Raleway", Arial, sans-serif;
+	color: rgb(255, 255, 255);
+	letter-spacing: 2px;
+	background-color: #c89db8;
+  box-shadow: 3px 3px 5px 0px rgb(235, 235, 235);
+	padding-top: 5px;
+	padding-bottom:5px
+}
+
+.footerContent{
+	padding-right: 5px;
+	padding-left: 5px;
+	font-weight: bold;
+	letter-spacing: 2px;
+	font-size: 12px;
 }

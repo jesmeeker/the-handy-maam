@@ -62,7 +62,8 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
                 <section className="subpage--section">                
                     <article className='subpage--article'>
                         <h1 className="subpage--header">My Profile</h1>
-                            <h2 className="subpage--subheader">My Info</h2>
+                        <h2 className="subpage--subheader">My Info</h2>
+                            <img src={customer?.user?.image} alt={customer?.user?.firstName} className="employeeImg" />
                                 <article className="subpage--profile">
                                     <div>{customer?.user?.firstName} {customer?.user?.lastName}</div>
                                     <div>{customer?.streetAddress}</div> 

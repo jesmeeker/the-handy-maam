@@ -219,7 +219,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                         </header>
                             <section>{requestObject?.description}</section>
                             <section>Specialty Category: {requestObject?.specialty?.name}</section>
-                        <footer>
+                        <section>
                             {
                                 claimButton()
                             }
@@ -236,7 +236,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                                 ?   <div>~Review Submitted~</div>
                                 :   submitReviewButton()
                             }
-                        </footer>
+                        </section>
                     </section>
         </>
         }

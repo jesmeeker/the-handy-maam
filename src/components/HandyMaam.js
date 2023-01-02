@@ -5,6 +5,7 @@ import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import "./HandyMaam.css"
+import { Footer } from "./nav/Footer"
 
 
 
@@ -18,6 +19,7 @@ export const HandyMaam = () => {
 				<>
 					<NavBar />
 					<ApplicationViews />
+					<Footer />
 				</>
 			</Authorized>
 
