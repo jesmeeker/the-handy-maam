@@ -64,6 +64,10 @@ export const Education = () => {
         
         <section className="subpage--section">
         <article className='subpage--article'>
+            <article className='subpage'>
+                <h2>Sometimes to get the job done, all you need a little help.</h2>
+                <div>We're not only dedicated to helping women find safe service specialists to help around the house, but we're passionate about empowering them to also learn the tools necessary to handle some of the little tasks on their own to save time and keep some of their hard-earned money in their own pockets. You might be surprised at how much you can do on your own if you just had the right resources to guide you.</div>
+        <br></br>
         <label htmlFor="categories">Filter by Topic</label><br></br>
                 <select onChange={(evt) => {setChosenCategoryId(parseInt(evt.target.value))}}>
                     <option value={0} type="select" id="categoryId" className="form-control" required>topics</option>
@@ -71,9 +75,6 @@ export const Education = () => {
                             categories.map((category) => <option key={`category--${category.id}`} value={category.id}>{category.name}</option>)
                         }       
                 </select>
-            <article className='subpage'>
-                <h2>Sometimes to get the job done,<br></br> you just need a little help understanding the solution.</h2>
-                <div>We're not only dedicated to helping woman find safe service specialists to help around the house, but we're passionate about empowering them to also learn the tools necessary to handle some of the little tasks on their own to save time and keep some of their hard-earned money in their own pockets.</div>
                  <section className="employees">
                  <article className="subPage--employeeList"></article>
                  {

@@ -36,7 +36,9 @@ body {
   
 }
 
-
+.educationThumbnail {
+  width: 400px;
+}
 
 .subPage--requestButton {
     height: 5rem;
@@ -123,9 +125,12 @@ p {
   flex-basis: 1em;
 }
 .employeeCard {
+  display: flex;
+  flex-wrap: wrap;
   padding: 10px;
   margin: 10px;
   width: 400px;
+  justify-content: center;
   box-shadow: 3px 3px 5px 0px rgb(235, 235, 235);
   background-color: rgb(252, 252, 252);
   padding: .4rem
@@ -136,6 +141,7 @@ p {
   background-color: white;  
   border: 1px dotted black;
   border-radius: 5px;
+  display: flex;
 }
 .employeeImg {
   object-fit: cover;
@@ -216,12 +222,37 @@ p {
 .subpage--profile{
   margin: 2rem
 }
-
+.employeeTitle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
 .employeeLink {
+  flex-basis: 100%;
   color: black;
   text-decoration: none;
   font-size: 20px;
   font-weight: 1000;
+}
+.reviews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: space-evenly;
+  flex-basis: 1em;
+}
+
+
+.reviewCard {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 10px;
+  width: 400px;
+  justify-content: center;
+  box-shadow: 3px 3px 5px 0px rgb(235, 235, 235);
+  background-color: rgb(252, 252, 252);
+  padding: .4rem
 }
 
 .employee--detail {
