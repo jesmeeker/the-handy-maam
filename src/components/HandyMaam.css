@@ -36,6 +36,11 @@ body {
   
 }
 
+.subpage--inset{
+  padding-left: 2rem;
+  padding-right: 2rem
+}
+
 .educationThumbnail {
   width: 400px;
 }
@@ -101,13 +106,13 @@ h1, h2, h3, h4, h5, h6 {
 .subpage--section {
   padding-left: 10rem;
   padding-right: 10rem;
-  align-content: left;
+  justify-content: center;
 }
 
 .subpage--article {
   text-align: left;
-  padding-left: 3rem
-  
+  padding-left: 3rem;
+  justify-content: center  
 }
 
 p {
@@ -148,6 +153,23 @@ p {
   width: 20rem;
   height: 20rem;
   border-radius: 20rem
+}
+
+.customerReviewImg {
+  object-fit: cover;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 20rem;
+  margin: 1rem
+}
+.reviewStars {
+  margin-bottom: 1rem
+}
+
+.reviewTag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center
 }
 
 .position-absolute {
@@ -235,11 +257,54 @@ p {
   font-size: 20px;
   font-weight: 1000;
 }
+
+.requestbuttonlink {
+  flex-basis: 100%;
+  color: #c89db8;
+  text-decoration: none;
+  font-weight: 1000;
+}
 .reviews {
   display: flex;
   flex-wrap: wrap;
   justify-items: space-evenly;
   flex-basis: 1em;
+}
+.requests {
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: space-evenly;
+  flex-basis: 1em;
+}
+.requestCard {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 10px;
+  width: 400px;
+  justify-content: left;
+  box-shadow: 3px 3px 5px 0px rgb(235, 235, 235);
+  background-color: rgb(252, 252, 252);
+  padding: .4rem
+}
+
+.requestButtons{
+  height: 2rem;
+  width: fit-content;
+  background-color: rgb(252, 252, 252);
+  color: #c89db8;
+  font-size: .75rem;
+  border: 1px solid rgb(223, 223, 223);
+  border-radius: .5rem;
+  box-shadow: 3px 3px 5px 0px rgb(235, 235, 235);
+  margin-bottom: 1rem
+}
+
+.requestLinks {
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 1000;
 }
 
 

@@ -9,105 +9,71 @@ import onestar from "../../assets/graphics/one_star_rating.png"
 
 export const Reviews = () => {
     const [reviews, setReviews] = useState([])
+    const [customers, setCustomers] = useState([])
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/reviews`)
+            fetch(`http://localhost:8088/reviews?_expand=serviceRequest`)
             .then(res => res.json())
             .then((data) => {
                 setReviews(data)
+            })
+            fetch(`http://localhost:8088/customers?_expand=user`)
+            .then(res => res.json())
+            .then((data) => {
+                setCustomers(data)
             })
         },
         []
     )
 
+        
 return <>
     < RequestButton/><br></br>
     <section className="subpage--section">
         <h1 className="subpage--header">Reviews</h1>
-            <section className="reviews">
+            <section className="reviews subpage--article">
                 {
                     reviews.map((review) => {
+                        let image = 0
+
                         if (review.rating === "5") {
-                            return <>
-                                    <section className="reviewCard">
-                                        <img src={fivestar} width="200"/>
-                                <div className="reviewText">{review.text}</div><br></br>
-                                <section>    
-                                    Customer Name<br></br>
-                                    Date of Service
-                                </section>
-                            </section>
-                            </>
-                            } 
-                            else if (review.rating === "4") {
-                                return <>
-                                        <section className="reviewCard">
-                                            <img src={fourstar} width="200"/>
-                                    <div className="reviewText">{review.text}</div><br></br>
-                                    <section>    
-                                        Customer Name<br></br>
-                                        Date of Service
-                                    </section>
-                                </section>
-                                </>
-                                } else if (review.rating === "3") {
-                                    return <>
-                                            <section className="reviewCard">
-                                                <img src={threestar} width="200"/>
-                                        <div className="reviewText">{review.text}</div><br></br>
-                                        <section>    
-                                            Customer Name<br></br>
-                                            Date of Service
-                                        </section>
-                                    </section>
-                                    </>
-                                    }  else if (review.rating === "2") {
-                                        return <>
-                                                <section className="reviewCard">
-                                                    <img src={twostar} width="200"/>
-                                            <div className="reviewText">{review.text}</div><br></br>
-                                            <section>    
-                                                Customer Name<br></br>
-                                                Date of Service
-                                            </section>
-                                        </section>
-                                        </>
-                                        } else if (review.rating === "1") {
-                                            return <>
-                                                    <section className="reviewCard">
-                                                        <img src={onestar} width="200"/>
-                                                <div className="reviewText">{review.text}</div><br></br>
-                                                <section>    
-                                                    Customer Name<br></br>
-                                                    Date of Service
+                            image = fivestar
+                        } else if (review.rating === "4") {
+                            image = fourstar
+                        } else if (review.rating === "3") {
+                            image = threestar
+                        } else if (review.rating === "2") {
+                            image = twostar
+                        } else if (review.rating === "1") {
+                            image = onestar
+                        } else { image = null}
+
+
+                        return <>
+                            <section className="reviewCard">
+                                         <img src={image} alt={image} className="reviewStars" width="200" height="40"/>
+                                 <div className="reviewText">{review.text}</div><br></br>
+                                 <section> 
+                                     <br></br>   
+                                     {
+                                         customers.map((customer) => {
+                                             if (customer.id === review.customerId) {
+                                                let customerImage = customer?.user?.image
+                                                 return <>
+                                                  <section className="reviewTag"><img src={customerImage} alt={customer?.user?.firstName} className="customerReviewImg" />
+                                                    <div>{customer?.user?.firstName} {customer?.user?.lastName}<br></br></div>
                                                 </section>
-                                            </section>
-                                            </>
-                                            } else {
-                                                return <>
-                                                <section className="reviewCard">
-                                            <div className="reviewText">{review.text}</div><br></br>
-                                            <section>    
-                                                Customer Name<br></br>
-                                                Date of Service
-                                            </section>
-                                        </section>
-                                        </>
-                                            }
-                        })}
-        
-            {/* // <section className="reviewCard">
-            //             <div className="reviewText">{review.text}</div><br></br>
-            //             <section>    
-            //                 Customer Name<br></br>
-            //                 Date of Service
-            //             </section>
-            //         </section>})
-            //         } */}
-                    
-            
-            </section>
-    </section>
-    </>
-}
+                                                 </>
+                                                 }
+                                             }
+                                         )
+                         }
+                                    
+                                 </section>
+                        </section>
+                        </>
+                    })}</section>
+                    </section>
+                    </>
+                    }

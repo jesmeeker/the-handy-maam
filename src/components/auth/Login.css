@@ -2,6 +2,10 @@
     font-size: 2.5rem;
 }
 
+.container--login {
+    background-color: #c89db8;
+}
+
 fieldset {
     min-width: 0;
     padding: 1rem 0;

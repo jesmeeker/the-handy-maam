@@ -64,10 +64,10 @@ export const Education = () => {
         
         <section className="subpage--section">
         <article className='subpage--article'>
-            <article className='subpage'>
                 <h2>Sometimes to get the job done, all you need a little help.</h2>
+            <article className='subpage--inset'>
                 <div>We're not only dedicated to helping women find safe service specialists to help around the house, but we're passionate about empowering them to also learn the tools necessary to handle some of the little tasks on their own to save time and keep some of their hard-earned money in their own pockets. You might be surprised at how much you can do on your own if you just had the right resources to guide you.</div>
-        <br></br>
+        </article><br></br>
         <label htmlFor="categories">Filter by Topic</label><br></br>
                 <select onChange={(evt) => {setChosenCategoryId(parseInt(evt.target.value))}}>
                     <option value={0} type="select" id="categoryId" className="form-control" required>topics</option>
@@ -86,109 +86,7 @@ export const Education = () => {
                 }
                  </section>
                  </article>
-                 </article>
             </section>
     </>
 } 
 
-
-// export const GearList = () => {
-//   const [gear, setGear] = useState([]);
-//   const [upgradeable, setUpgradeable] = useState(false)
-//   const [dropdownItem, setDropdownItem] = useState([])
-//   const[filteredGear, setFilteredGear] = useState([])
-//   const [gearTypeId, setGearTypeId] = useState(“”)
-
-//   const localGearUser = localStorage.getItem(“gear_user”)
-//   const gearUserObject = JSON.parse(localGearUser)
-//   const navigate = useNavigate()
-
-//   useEffect(
-//     () => {
-//       fetch(`http://localhost:8088/userOwnedGear?userId=${gearUserObject.id}`)
-//       .then(res => res.json())
-//       .then(
-//         (gearData) => {
-//           setGear(gearData)
-//         }
-//       );
-//   }, []);
-//   useEffect(
-//     () => {
-//       if (upgradeable) {
-//         const upgradeableGear = gear.filter(gearItem => gearItem.toUpgrade === true)
-//         setFilteredGear(upgradeableGear)
-//       } else {
-//         fetch(`http://localhost:8088/userOwnedGear?userId=${gearUserObject.id}`)
-//         .then(res => res.json())
-//         .then(
-//           (gearData) => {
-//             setFilteredGear(gearData)
-//           }
-//         )
-//       }
-//     },
-//     [upgradeable]
-//   )
-//   useEffect(
-//     () => {
-//         fetch(`http://localhost:8088/gearTypes?userInstrumentsId=${gearUserObject.instrumentOptionsId}&_expand=userInstruments&_embed=userOwnedGear`)
-//         .then(res => res.json())
-//         .then((data) => {
-//             setDropdownItem(data)
-//         })
-//     },
-//     []
-//   )
-//   useEffect(
-//     () => {
-//       const filteredCopy = gear.filter(item => item.gearTypeId === gearTypeId)
-//       setFilteredGear(filteredCopy)
-//     },
-//     [gearTypeId]
-//   )
-//   return (
-//     <>
-//     <fieldset>
-//                 <div className=“form-group”>
-//                     <select onChange={(evt) => {
-//                       setGearTypeId(parseInt(evt.target.value))
-//                      } }>
-//                         <option value={0}>{`Filter by Type`}</option>
-//                         {
-//                             dropdownItem.map((item) =>
-//                                 <option key={`gearType--${item.id}`} value={item.id}>{item.name}</option>
-//                             )
-//                         }
-//                     </select>
-//                 </div>
-//             </fieldset>
-//       <button onClick={() => navigate(“/gearList/add”)}>Add Gear</button>
-//       <button
-//         onClick={
-//           () => {
-//           setUpgradeable(true)
-//           }
-//         }>Upgradeable</button>
-//         <button
-//         onClick={
-//           () => {
-//           setUpgradeable(false)
-//           setFilteredGear(gear)
-//           }
-//         }>All Gear</button>
-//       <article className=“gearDetails”>
-//         {
-//           filteredGear.map(g => <GearComp key={g.id}
-//             id={g.id}
-//             name={g.name}
-//             gearTypeId={g.gearTypeId}
-//             datePurchased={g.datePurchased}
-//             pricePaid={g.pricePaid}
-//             description={g.description}
-//            /> )
-//           }
-//   </article>
-//     </>
-//   );
-// };

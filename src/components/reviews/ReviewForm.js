@@ -14,6 +14,7 @@ export const ReviewForm = () => {
     const [review, setReview] = useState({
         rating: 0,
         text: "",
+        title: ""
     })
 
     useEffect(() => {
@@ -49,8 +50,9 @@ export const ReviewForm = () => {
 
         const reviewToSendToAPI = {
             customerId: customer.id,
-            employeeId: request?.employeeRequests[0].employeeId,
+            employeeId: request?.employeeRequests[0]?.employeeId,
             rating: review?.rating,
+            title: review?.title,
             text: review?.text,
             serviceRequestId: request?.id
         }
@@ -87,7 +89,6 @@ export const ReviewForm = () => {
                 <h1 className="h3 mb-3 font-weight-normal">Rate and Review your Handy Ma'am</h1>
                 <label htmlFor="text"> Rating </label>
                 <select onChange={updateReview} id="rating">
-                    <option value={0} type="select" id="rating" className="form-control" required>0</option>
                     <option value={1} type="select" id="rating" className="form-control" required>1</option>
                     <option value={2} type="select" id="rating" className="form-control" required>2</option>
                     <option value={3} type="select" id="rating" className="form-control" required>3</option>
@@ -100,6 +101,12 @@ export const ReviewForm = () => {
                            type="text" id="rating" className="form-control"
                            placeholder="rating" required autoFocus />
                 </fieldset> */}
+                <fieldset>
+                    <label htmlFor="title"> Title </label>
+                    <input onChange={updateReview}
+                           type="text" id="title" className="form-control"
+                           placeholder="Title of Review" required />
+                </fieldset>
                 <fieldset>
                     <label htmlFor="text"> Review </label>
                     <input onChange={updateReview}

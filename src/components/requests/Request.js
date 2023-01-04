@@ -17,11 +17,11 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     
     const canClose = () => {
             if (userEmployee?.id === assignedEmployee?.id && requestObject.dateCompleted === "") {
-                return <button className="ticket__finish"
+                return <button cclassName="requestButtons"
                         onClick={closeTicket}
                         >Close</button>
             } else if (userEmployee?.id === requestObject?.employeeId && requestObject?.serviceRequest?.isComplete === false) {
-                return <button className="ticket__finish"
+                return <button className="requestButtons"
                         onClick={secondCloseTicket}
                         >Close</button>
             } else {
@@ -32,7 +32,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     
     const deleteButton = () => {
         if (!currentUser.staff && !requestObject.isComplete) {
-            return <button onClick={() => {
+            return <button className="requestButtons" onClick={() => {
                 fetch(`http://localhost:8088/serviceRequests/${requestObject?.id}`, {
                     method: "DELETE",
                 })
@@ -40,7 +40,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                         getAllRequests()
                     })
                     .then(refreshPage)
-            }} className="ticket__delete">Cancel Request</button> 
+            }}><span style={{ fontWeight: 'bold' }}>Cancel Request</span></button> 
         } 
         else if (currentUser.staff && !requestObject.isComplete && requestObject?.employeeRequests?.length === 0) {
             return <button onClick={() => {
@@ -51,7 +51,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                     getAllRequests()
                 })
                 .then(refreshPage)
-            }} className="ticket__delete">Deny</button>
+            }} className="requestButtons">Deny</button>
         }
         else {
             return ""
@@ -62,7 +62,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
 
     const editButton = () => {
         if (!currentUser.staff && !requestObject.isComplete) {
-            return <button><Link to={`/request/${requestObject.id}/edit`} state={{ user: {currentUser}}}>Edit
+            return <button className="requestButtons"><Link className="requestbuttonlink" to={`/request/${requestObject.id}/edit`} state={{ user: {currentUser}}}>Edit
                     </Link>
                     </button>
             }
@@ -120,7 +120,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     
     const submitReviewButton = () => {
         if (requestObject?.isComplete === true) {
-        return <button><Link to={`/request/${requestObject.id}/submitreview`} state={`{ userId: ${currentUser.id}}`}>Submit Review
+        return <button className="requestButtons"><Link className="requestbuttonlink" to={`/request/${requestObject.id}/submitreview`} state={`{ userId: ${currentUser.id}}`}>Submit Review
                     </Link>
                     </button>}
                     else {
@@ -129,7 +129,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     }
     const claimButton = () => {
         if (currentUser.staff && requestObject?.employeeRequests?.length === 0) {
-            return <button
+            return <button className="requestButtons"
                             onClick={() => {
                                 fetch(`http://localhost:8088/employeeRequests`, {
                                     method: "POST",
@@ -163,10 +163,10 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     const display = () => {
         if (currentUser?.staff) {
             if (value === true) {
-            return <>
+            return <><article className="requestCard">
                     <section key={`key--${requestObject.id}`} className="request">
                         <header>
-                            <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestObject?.id}
+                            <Link className="requestbuttonlink" to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestObject?.id}
                         </Link>
                         </header>
                             <section>{requestObject?.description}</section>
@@ -186,12 +186,13 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             }
                         </section>
                     </section>
+                    </article>
         </>
         } else {
-            return <>
+            return <><article className="requestCard">
                 <section key={`key--${requestObject?.id}`} className="request">
                     <header>
-                    <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestObject?.serviceRequest?.id}
+                    <Link className="requestbuttonlink" to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestObject?.serviceRequest?.id}
                         </Link></header>
                         <section>{requestObject?.serviceRequest?.description}</section>
                         {/* <section>Specialty Category: {requestObject?.specialty?.name}</section> */}
@@ -207,14 +208,15 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             }
                             </section>
                 </section>
+                </article>
             </>
         }
     }
         else {
-            return <>
+            return <><article className="requestCard">
                     <section key={`key--${requestObject.id}`} className="request">
                         <header>
-                            <Link to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestNumber}
+                            <Link className="requestbuttonlink" to={`/request/${requestObject.id}`} state={`{ employeeId: ${id} }`}>Request {requestNumber}
                         </Link>
                         </header>
                             <section>{requestObject?.description}</section>
@@ -238,6 +240,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                             }
                         </section>
                     </section>
+                    </article>
         </>
         }
     }
