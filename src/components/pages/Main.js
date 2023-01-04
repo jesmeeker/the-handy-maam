@@ -8,12 +8,13 @@ export const Main = () => {
 
     let navigate = useNavigate()
     return <>
-    
+            <section className="container">
                     <article className="mainPage">
                         <h1 className="mainPage--header">The Handy Ma'am</h1>
                         <div className="right">Run by women, for women.</div>
-                    </article>
                     < RequestButton /><br></br>
+                    </article>
+                    </section>
                     {/* <button className="requestButton"
                             onClick={() => {
                                 localUser

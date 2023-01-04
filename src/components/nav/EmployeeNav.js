@@ -14,18 +14,18 @@ export const EmployeeNav = () => {
     return (
         <ul className="navbar">
             <li className="navbar__item active">
-                <Link to="/"><img width="60" className="accountButton" src={logoWhite}/></Link>
+                <Link to="/"><img width="30" className="accountButton" src={logoWhite}/></Link>
             </li>
-            <li className="navbar__item active"><Link className="navbar__link" to="/billing">My Billing</Link></li>
+            {/* <li className="navbar__item active"><Link className="navbar__link" to="/billing">My Billing</Link></li> */}
 
             <li className="navbar__item active"><Link className="navbar__link" to="/reviews">My Reviews</Link></li>
 
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/requests">Requests</Link></li>
             
-            <li className="navbar__item active">
+            {/* <li className="navbar__item active">
                 <Link className="navbar__link" to="/profile">Profile</Link>
-            </li>
+            </li> */}
             <li className="navbar__item active">
                 <Link to="/profile"><img width="30" className="accountButton" src={accountGraphic}/></Link>
             </li>

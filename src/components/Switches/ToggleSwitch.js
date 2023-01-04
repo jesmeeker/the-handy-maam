@@ -7,7 +7,7 @@ function refreshPage() {
 
 const ToggleSwitch = ({ label, label2, value, setValue, refreshPage}) => {
     return (
-      <div className="container">
+      <div className="">
         {label}{" "}
         <div className="toggle-switch">
           <input type="checkbox" className="checkbox" value={value}

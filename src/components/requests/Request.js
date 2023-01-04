@@ -17,7 +17,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
     
     const canClose = () => {
             if (userEmployee?.id === assignedEmployee?.id && requestObject.dateCompleted === "") {
-                return <button cclassName="requestButtons"
+                return <button className="requestButtons"
                         onClick={closeTicket}
                         >Close</button>
             } else if (userEmployee?.id === requestObject?.employeeId && requestObject?.serviceRequest?.isComplete === false) {

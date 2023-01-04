@@ -185,6 +185,7 @@ export const EditRequestForm = () => {
                         }>{request.description}</textarea>
                 </div>
             </fieldset>
+            <br></br>
             <label htmlFor="specialty">Specialty</label><br></br>
                 <select onChange={
                             (evt) => {

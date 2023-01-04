@@ -14,6 +14,13 @@ textarea {
   /* line-height: 1; */
 }
 
+
+body {
+  background-image: url("../assets/graphics/background_logo.svg");
+  background-repeat: no-repeat;
+  background-position: 120% -30%;
+
+}
 body {
     background-color: white;
     text-align: center;
@@ -23,6 +30,14 @@ body {
 .mainPage {
   display: grid;
   justify-items: center;
+  padding-bottom: 100px
+}
+
+.container {
+  height: 100vh;
+  display: grid;
+  justify-items: center;
+  align-items: center;
 }
 
 .mainPage--header {
@@ -116,7 +131,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-group {
-  flex-basis: 100%
+  flex-basis: 100%;
+  width: 495px;
 }
 
 p {

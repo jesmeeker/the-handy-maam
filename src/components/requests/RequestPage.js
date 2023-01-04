@@ -82,6 +82,8 @@ export const RequestPage = () => {
     const localUser = JSON.parse(localHandyMaamUser)
 
 return <>
+<section className="subpage--section">
+<article className='subpage--article'>
         <h2 className="subpage--subheader">Requests</h2>
             <section><React.Fragment>
                 <ToggleSwitch value={value} setValue={setValue}
@@ -102,5 +104,7 @@ return <>
                         )
             }
         </article>
-    </>
+        </article>
+        </section>
+        </>
 }
