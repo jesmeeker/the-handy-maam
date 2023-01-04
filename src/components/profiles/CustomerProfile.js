@@ -2,6 +2,11 @@ import { useEffect, useState } from "react"
 import { RequestButton } from "../requests/RequestButton"
 import { Request } from "../requests/Request"
 import { Link, Navigate, useNavigate } from "react-router-dom"
+import fivestar from "../../assets/graphics/five_star_rating.png"
+import fourstar from "../../assets/graphics/four_star_rating.png"
+import threestar from "../../assets/graphics/three_star_rating.png"
+import twostar from "../../assets/graphics/two_star_rating.png"
+import onestar from "../../assets/graphics/one_star_rating.png"
 
 export const CustomerProfile = ({ UserId, currentUser }) => {
     const [customer, setCustomer] = useState({})
@@ -103,9 +108,31 @@ export const CustomerProfile = ({ UserId, currentUser }) => {
                                     <br></br> 
                                 <article className="reviews">
                                     {
-                                        customerReviews.map((review) => <div>
-                                            `{review?.text.substring(0, charMax)}...``
-                                        </div>)
+                                        customerReviews.map((review) => {
+                                            let image = 0
+
+                                            if (review.rating === "5") {
+                                                image = fivestar
+                                            } else if (review.rating === "4") {
+                                                image = fourstar
+                                            } else if (review.rating === "3") {
+                                                image = threestar
+                                            } else if (review.rating === "2") {
+                                                image = twostar
+                                            } else if (review.rating === "1") {
+                                                image = onestar
+                                            } else { image = null}
+                                            
+                                            return <div>
+                                            <article className="requestCard"><header className="reviewHeader">{review?.title}</header><img src={image} alt={image} className="reviewStars" width="100" height="20"/> <br></br>
+                                            <div>
+                                                "{review?.text}"
+                                                </div>
+                                            <button className="requestButtons"><Link className="requestbuttonlink" to={`/review/${review.id}/edit`}>Edit
+                    </Link>
+                    </button></article>
+                                        </div>})
+
                                     }    
                                 </article>
                     </article>    

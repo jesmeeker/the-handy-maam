@@ -85,6 +85,7 @@ export const RequestForm = ({state}) => {
 
     return (
         <form className="ticketForm">
+        <section className="subpage--article">
             <h2 className="ticketForm__title">New Service Request</h2>
             <fieldset>
                 <div className="form-group">
@@ -103,7 +104,8 @@ export const RequestForm = ({state}) => {
                             }
                         } />
                 </div>
-            </fieldset>
+            </fieldset><br></br>
+            <section>
             <label htmlFor="specialty">Specialty</label><br></br>
                 <select onChange={
                             (evt) => {
@@ -117,11 +119,15 @@ export const RequestForm = ({state}) => {
                             specialties.map((specialty) => <option key={`specialty--${specialty.id}`} value={specialty.id}>{specialty.name}</option>)
                         }       
                 </select>
+                </section>
+                <section>
+                    <br></br>
             <button
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
+                className="requestButtons">
                 Submit Request
             </button>
-        </form>
+            </section>
+        </section></form>
     )
 }

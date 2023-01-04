@@ -235,7 +235,7 @@ export const Request = ({ requestObject , currentUser , employees , getAllReques
                                 deleteButton()
                             }
                             { (requestObject?.reviews.length)
-                                ?   <div>~Review Submitted~</div>
+                                ?   <div></div>
                                 :   submitReviewButton()
                             }
                         </section>

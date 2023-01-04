@@ -13,6 +13,7 @@ import { EditRequestForm } from "../requests/EditRequestForm"
 import { RequestDetail } from "../requests/RequestDetail"
 import { RequestForm } from "../requests/RequestForm"
 import { Success } from "../requests/Success"
+import { EditReviewForm } from "../reviews/EditReviewForm"
 import { ReviewForm } from "../reviews/ReviewForm"
 
 export const CustomerViews = () => {
@@ -46,6 +47,8 @@ export const CustomerViews = () => {
                 <Route path="request/:requestId/edit" element={ <EditRequestForm />} />
                 <Route path="request/:requestId/submitreview" element={ <ReviewForm />} />
                 <Route path="request/:id" element={ <RequestDetail/>}  />
+                <Route path="review/:reviewId/edit" element={ <EditReviewForm/>}  />
+
                 </Route>
         	</Routes>
         </>
