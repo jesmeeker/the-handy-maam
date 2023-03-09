@@ -72,3 +72,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ## Wireframe
 [![Figma Wireframe](https://res.cloudinary.com/dry2hcdx9/image/upload/v1678376028/Screen_Shot_2023-03-09_at_9.32.20_AM_gp3nqu.png)](https://www.figma.com/file/USWZsoGKE7X9T7mqR885Bj/TheHandyMa'am?node-id=1%3A2&t=uqy80EImRhpj4Y12-1)
 
+## ERD 
+[![dbdiagram.io ERD]([https://res.cloudinary.com/dry2hcdx9/image/upload/v1678376028/Screen_Shot_2023-03-09_at_9.32.20_AM_gp3nqu.png](https://res.cloudinary.com/dry2hcdx9/image/upload/v1678376311/Screen_Shot_2023-03-09_at_9.38.17_AM_dgbg7p.png))]([https://www.figma.com/file/USWZsoGKE7X9T7mqR885Bj/TheHandyMa'am?node-id=1%3A2&t=uqy80EImRhpj4Y12-1](https://dbdiagram.io/d/6382811ec9abfc6111755e56))
